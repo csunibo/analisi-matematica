@@ -1,0 +1,216 @@
+\documentclass[12pt]{article}
+\usepackage{settings}
+
+\begin{document}
+
+
+\section{Forme Quadratiche}
+
+\subsection{Definizione}
+
+Sia $A\in \R ^ {n\times n}$ $A=A^T$ considero $q_A:\; \R^n \rightarrow \R $ $q_A(h) = \langle Ah, h\rangle$\newline
+$\forall h = (h_1,\dots, h_n)\in \R$ \qquad $A\in \R^{n\times n},\;h\in \R^{n\times 1},\; Ah\in \R^{n\times 1}$\newline
+$q_A$ è la forma quadratica associata alla matrice quadrata e simmetrica A
+
+\textbf{quadrata:} matrice che ha lo stesso numero di righe e colonne
+
+\textbf{simmetrica:} matrice che è uguale alla sua trasposta
+
+
+$$
+    A =
+    \begin{bmatrix}
+        a & b \\
+        b & c
+    \end{bmatrix}
+    = A^T
+$$
+$$
+    q_A = \;\langle
+    \begin{bmatrix}
+        a & b \\
+        b & c
+    \end{bmatrix}
+    \begin{bmatrix}
+        h_1 \\
+        h_2
+    \end{bmatrix},
+    \begin{bmatrix}
+        h_1 \\
+        h_2
+    \end{bmatrix}
+    \rangle\; = \;\langle
+    \begin{bmatrix}
+        ah_1 + bh_2 \\
+        bh_1 + ch_2
+    \end{bmatrix},
+    \begin{bmatrix}
+        h_1 \\
+        h_2
+    \end{bmatrix}
+    \rangle\; = ah_1^2+2b\,h_1\,h_2+ch_2^2
+$$
+\\Caso con n generico:
+
+$$
+    q_A = \sum_{j,k = 1}^{n} a_{jk} h_k h_j = \sum_{j = 1}^{n} a_{jj} h_j^2 + \sum_{1\leq j < k\leq n} a_{jk}h_jh_k
+$$
+
+\paragraph*{Osservazione informale:}
+Abbiamo trovato un polinomio di grado 2,\\
+quindi possiamo dire che le forme quadratiche sono delle funzioni
+associate a delle matrici che rappresentano polinomi
+
+
+\subsection{Segno di una forma quadratica}
+
+\textbf{Definizione:} $A^T = A \in \R^{n\times n}$
+
+\begin{enumerate}
+    \item Si dice che A è definita positiva se vale $\langle Ah, h\rangle > 0\; \forall h \neq 0 \in \R ^n$
+    \item Si dice che A è definita negativa se vale $\langle Ah, h\rangle < 0\; \forall h \neq 0 \in \R ^n$
+    \item Si dice che A è indefinita se $\exists h^+, h^- \in \R ^n$ t.c. \\$\langle Ah^-,h^-\rangle  \lneqq 0 \lneqq \langle Ah^+,h^+ \rangle$
+\end{enumerate}
+
+\paragraph*{Osservazione informale:}
+La matrice A è positiva se per ogni vettore h è positiva, stessa cosa vale per il negativo.
+Invece si dice indefinita se per alcuni vettori h è negativa e per altri è positiva,
+quindi non possiamo assegnarli un segno preciso.
+
+\paragraph*{Osservazione informale:}
+I segni di disuguaglianza devono essere stretti ($<, >$),
+altrimenti si dice che A è semidefinita positiva.\\
+
+
+Forme quadratiche non singolari:
+\begin{enumerate}
+    \item $A > 0 \Leftrightarrow
+              \begin{cases}
+                  a > 0                                             \\
+                  ac-b^2 > 0 & \quad \textit{determinante positivo}
+              \end{cases} $
+    \item $A < 0 \Leftrightarrow
+              \begin{cases}
+                  a < 0                                             \\
+                  ac-b^2 > 0 & \quad \textit{determinante positivo}
+              \end{cases} $
+    \item A è indefinita $\Leftrightarrow ac-b^2<0 \quad \textit{determinante negativo}$
+          \\
+          \\Forme quadratiche singolari:
+    \item se $ac-b^2 = 0$, quindi \textit{determinante nullo}, si tratta di una matrice singolare, quindi A è semidefinita
+\end{enumerate}
+
+\subsection{Proposizione}
+
+Se $A = A^T \in \R^{n\times n}$ è definita positiva,
+allora $\exists m >0$ t.c. $$\langle Ah, h\rangle \geq m \lvert h \rvert ^2 \quad \forall h \in \R$$
+Allo stesso modo se A è definita negativa, allora $\exists m >0$ t.c. $$\langle Ah, h\rangle \leq m \left\lvert h \right\rvert ^2 \quad \forall h \in \R$$
+
+\paragraph*{Dimostrazione: (n=2)}
+Scriviamo $h=(r\cos\theta , r\sin\theta)$ con $r\geq 0, r = \lvert h\rvert$ e $\theta \in [0, 2\pi]$\\
+Allora vale $\langle Ah, h\rangle = a_{11}\,r^2\cos^2 \theta\;+\; 2a_{12}\,r^2\cos\theta\sin\theta\;+\;a_{22}\,r^2\sin^2\theta = r^2[a_{11}\cos^2 \theta\;+\; 2a_{12}\cos\theta\sin\theta\;+\;a_{22}\sin^2\theta]$\\
+Poniamo $g(\theta) = [\dots]$ per $\theta \in [0, 2\pi]$\\
+Per ipotesi $g(\theta) > 0 \quad \forall \theta \in [0, 2\pi]$ (infatti $r^2g(\theta)>0 \quad \forall r>0$ e $\theta \in [0, 2\pi]$)\\
+Essendo f continua su $[0, 2\pi]$ per il teorema di Weistrass $\exists \overline{\theta} \in [0, 2\pi]$ tale che $g(\overline{\theta}) = min\;g$.\\
+Tale minimo è positivo e lo chiamiamo m. Dunque $\langle Ah, h\rangle = r^2g(\theta) \geq r^2m = m \lvert h \rvert^2 \quad \forall h$\\
+
+
+\section{Formula di Taylor di ordine 2}
+
+$A\subseteq \R^n$ aperto, $f:\;A\rightarrow \R$, f è di classe $C^2$\\
+Allora vale $\forall \ox \in A$ vale lo sviluppo
+$$f(\ox + h) = f(\ox) + \langle \bigtriangledown f(\ox), h \rangle + \frac{1}{2}\langle Hf(\ox)h, h \rangle + o(\rvert h \rvert ^2)\;\;\;\text{per } h\rightarrow 0$$
+
+\paragraph*{Dimostrazione:}
+Dimostriamo la seguente formula con resto "non uniforme"
+$$\forall v \in \R ^n,\; \rvert v\rvert = 1, \forall x \in A$$
+vale la formula
+\begin{equation}\label{eq:taylor2}
+    f(\ox + tv) = f(\ox) + \langle \bigtriangledown f(\ox), tv \rangle + \frac{1}{2}\langle Hf(\ox)tv, tv \rangle + o(t ^2)\;\;\;\text{per } t\rightarrow 0 \in \R
+\end{equation}
+\\
+Consideriamo la funzione $g:\;]-\varepsilon, \varepsilon[ \;\rightarrow \R$, $g(t) = f(\ox + tv)$
+            definita per $\varepsilon$  sufficientemente piccolo. \\
+            Poichè f è di classe $C^2$, si vede che
+        $\exists g'(t) = \langle \bigtriangledown f(\ox+tv), v \rangle\;\;\forall t \in \;]-\varepsilon, \varepsilon[$
+inoltre esiste ed è  continua $g''(t) = \langle Hf(\ox+tv)v, v \rangle$
+\\\\
+Scriviamo la Taylor in t per g con punto iniziale t = 0. Otteniamo:
+$$g(t) = g(0) + g'(0)t + g''(0)\frac{t^2}{2} + o(t^2)$$
+Trascrivendo in termini di f si trova esattamente la formula~\ref{eq:taylor2} da dimostrare.
+
+\section{Teorema di classificazione dei punti critici}
+
+Se $f:\; A \rightarrow \R$ è $C^2$ sull'aperto $A\subseteq \R ^n$, vale quanto segue, per $\ox \in A$
+
+\begin{enumerate}
+    \item $
+              \begin{cases}
+                  \bigtriangledown f(\ox) = 0                                             \\
+                  Hf(\ox) > 0 & \quad\Longrightarrow \ox \text{ è punto di minimo locale}
+              \end{cases}
+          $
+    \item $
+              \begin{cases}
+                  \bigtriangledown f(\ox) = 0                                              \\
+                  Hf(\ox) < 0 & \quad\Longrightarrow \ox \text{ è punto di massimo locale}
+              \end{cases}
+          $
+    \item $
+              \begin{cases}
+                  \bigtriangledown f(\ox) = 0                                                    \\
+                  Hf(\ox) \text{ indefinita} & \quad\Longrightarrow \ox \text{ è punto di sella}
+              \end{cases}
+          $
+\end{enumerate}
+
+\paragraph*{Nota:}
+$\ox$ punto critico di f si dice di sella se $\forall r > 0\;\; \exists x_+\,,\; x_- \in B(\ox, r)$
+tale che $f(x_-) < f(\ox) < f(x_+)$
+
+\paragraph*{Dimostrazione}
+
+Sia $A\subseteq \R^n$ aperto e $f: A \to \R$ di classe $C^2$.\\
+Sia $\ox \in A$ un punto critico con $Hf(\ox) > 0$.\\
+Dobbiamo dimostrare che $\exists \delta >0$ tale che:
+$$
+    f(\ox+h) - f(\ox) \geq 0 \;\;\;\; \forall h\in B(0,\delta)
+$$
+\\
+Usiamo la formuala di Taylor.
+$$
+    f(\ox + h)-f(\ox) = f(\ox) + \langle \bigtriangledown f(\ox), h \rangle + \frac{1}{2}\langle Hf(\ox)h, h \rangle + o(\rvert h \rvert ^2)\;\;\;\text{per } h\to 0
+$$
+visto che $\bigtriangledown f(\ox) = 0$, analizziamo $ \frac{1}{2}\langle Hf(\ox)h, h\rangle + o\left(\vert h\vert^2\right) \geq 0 $\\
+Per il teorema sulle forme positive $\exists m>0$ tale che
+$$
+    \langle Hf(x)h, h\rangle\geq m \vert h\vert^2\;\;\;\;\forall h\in \R^2
+$$
+\\
+Usando la definizione di o-piccolo con $\varepsilon = \frac{m}{4}$, $\exists \delta >0$ tale che
+$$
+    -\frac{m}{4} \leq \frac{o(\vert h\vert^2)}{\vert h\vert^2}\leq\frac{m}{4} \;\;\;\;\forall h\in B(0,\delta)
+$$
+\\
+Dunque, per $\vert h\vert <\delta$ vale
+%$$
+%    f(\ox+h) - f(\ox) \geq \vert h\vert^2 \left(\frac{1}{2}m + \frac{o\left(\vert h\vert^2\right)}{\vert h\vert^2}\right) \geq \vert h\vert^2 \left(\frac{m}{2} - \frac{m}{4}\right) = \frac{m}{4}\vert h\vert^2 \geq 0 \;\;\;\;\forall h\in B(0,\delta)
+%$$
+
+\begin{align*}
+    f(\ox+h) - f(\ox) & \geq \vert h\vert^2 \left(\frac{1}{2}m + \frac{o\left(\vert h\vert^2\right)}{\vert h\vert^2}\right)\geq                        \\
+                      & \geq \vert h\vert^2 \left(\frac{m}{2} - \frac{m}{4}\right) = \frac{m}{4}\vert h\vert^2 \geq 0 \;\;\;\;\forall h\in B(0,\delta)
+\end{align*}
+Il teorema è dimostrato. I casi di punto di massimo o sella sono analoghi.
+
+
+\subsection{Condizioni necessarie affinchè $\ox$ sia di minimo}
+Siamo nel secondo ordine. Se $A\subseteq \R^n$ è aperto, f è $C^2$ su A e $\ox$ è di minimo, allora:
+$$
+    \begin{cases}
+        \bigtriangledown f(\ox) = 0 \\
+        \langle Hf(\ox)h, h \rangle \geq 0 \;\;\;\forall h\in\R^n
+    \end{cases}
+$$
+Si dice in tal caso che $Hf(\ox)$ è semidefinita positiva
+\end{document}

@@ -1,0 +1,42 @@
+\documentclass[a4paper]{article}
+\usepackage{settings}
+\begin{document}
+	
+\section{Proprietà integrali}
+$$
+\int (f(x) +g(x)) dx = \int f(x) dx + \int g(x) dx \\
+$$
+$$
+\int k f(x) dx = k \int f(x) dx
+$$
+
+\section{Tabella primitive}
+TODO
+
+\section{Integrazione di una funzione composta}
+La formula generica è:
+$$
+\int^b_a g'(f(x))f'(x) dx = \Big [ g (f(x)) \Big ]^{b}_{a}
+$$
+deriva da
+$$
+f: I \rightarrow J , g: J \rightarrow \mathbb{R} ,\  f,g\ derivabili 
+$$
+$$
+\int^b_a {d \over dx} (g \circ f)(x) = \int^b_a g'(f(x))f'(x) dx = \Big [ g (f(x)) \Big ]^{b}_{a}
+$$
+\subsection{Integrali notevoli di funzioni composte}
+$$
+
+- \int f'(x) [ f'(x) ]^\alpha dx = {[f(x)]^{\alpha +1} \over \alpha +1} \ con \ \alpha \neq -1
+
+- \int {f'(x) \over f(x)} dx = \ln |{ f(x)}| \ \textbf{NB:} questo \ è\ il\ caso\ \alpha = -1 \ della\ prec.
+
+- \int f'(x) \cos f(x) dx = \sin f(x)
+
+- \int f'(x) \sin f(x) dx = - \cos f(x)
+
+- \int f'(x) e^{f(x)} dx = e^{f(x)}
+
+$$
+\end{document}

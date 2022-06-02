@@ -1,0 +1,153 @@
+\documentclass[a4paper]{article}
+
+\usepackage{settings}
+\begin{document}
+
+\section{Spazio euclideo}
+$$
+\R ^ n := \{ x = (x_1, x_2, \dots , x_n | x_1, x_2, x_n \in \R \}
+$$	
+In $ \R ^ n $ vale 
+
+\begin{description}
+	\item [Somma tra vettori] $ x = (x_1,\dots,x_2) , y = (y_1, ... , y_n) $
+		$$
+		x+y=(x_1+y_1 + \dots + x_n + y_n )
+		$$
+	\item [Prodotto  con scalare] dato $ x=(x_1, \dots , x_n) , \lambda \in \R $, poniamo
+		$$
+		\lambda x:=( \lambda x_1, \dots , \lambda x_n )
+		$$
+\end{description}
+
+\paragraph{Definizione Prodotto scalare euclideo} Dati $x , y \in \R ^ n $, poniamo:
+$$
+\langle x,y \rangle := \sum_{k=1}^n x_k y_k
+$$
+
+\subsection{ Proprietà: }
+
+\begin{enumerate}
+	\item %[Simmetrie] 
+		$\langle x,y \rangle = \langle y,x \rangle \quad \forall x,y \in \R ^n $ 
+
+	\item %[Bilinearità] 
+		$ \langle \lambda x + \mu y , z \rangle = \lambda \langle x ,z \rangle + \mu \langle y,z \rangle $ e
+		$ \langle z, \lambda x + \mu y \rangle = \lambda \langle z,x \rangle + \mu \langle z,y \rangle \quad \forall x,y,z \in \R ^ n \et \lambda , \mu \in \R $
+		\item $ \langle x,x \rangle \ge 0 \quad \forall x \in \R ^ n $
+		\item $ \langle x,x \rangle = 0 \iff x= \underline{0} = (0,0,\dots, 0). $
+\end{enumerate}
+
+\subsection { Definizione Vettori ortogonale} $x,y \in \R ^n $ si dicono ortogonali se $ \langle x,y \rangle = 0$
+
+\subsection { Definizione Norma euclidea }
+Dato $ x \in \R ^n $, poniamo $ \|x \| := \sqrt{\langle x,x \rangle } \in [0, + \infty [$
+
+Si dice norma di x (viene usata la notazione $|x|$)
+
+\paragraph { Interpretazione della norma con lunghezza (con il Teorema di Pitagora) }
+
+\subsubsection{Proprietà della norma}
+
+\begin{enumerate}
+	\item $ | \lambda x | = | \lambda | \cdot | x | \quad \forall \lambda \in \R , x \in \R ^ n $
+	\item $ | x | \ge 0 \quad \forall x \in \R ^ n $ in oltre $ | x| =0 \iff x=0 $
+	\item $ | x+y | \le |x| + |y| \quad forall x,y \in \R ^n$ (disuguanza triangolare, con relativa interpretazione)
+\end{enumerate}
+
+\subsection {Normalizzato di un vettore}
+\paragraph{ Definizione: } dato $x \neq 0, x \in \R ^n, $ il normalizzato di x è il vettore $ x \over | x | $, l'unico multiplo positivo di $x$ che ha norma 1
+
+\subsection{ Scrittura del prodotto scalare in coordinate polati in $ \R ^ n $}
+Dati $ x \in \R ^ 2 \setminus \{ 0 \} $ , scriviamo 
+$$
+x= | x | { x \over |x| } = r ( \cos \theta , \sin \theta )
+$$
+dove $r=|x|$ e $\theta \in \R$ è opportuno. Presi $x = ( r \cos \theta, r \sin \theta)$ e $y=( \rho \cos \phi , \rho \sin \phi )$ , risulta
+$$
+\langle x,y \rangle = r \rho \cos ( \phi - \theta ) = |x| \cdot |y| \cos ( \phi - \theta ) 
+$$
+la conseguenza è la disuguaglianza di Clauchy-Schwarz
+
+\subsection{ La disuguaglianza di Clauchy-Schwarz}
+
+$\forall x,y \in \R ^ n $ vale 
+$$
+| \langle x,y \rangle | \le |x| \cdot |y|
+$$
+Inoltre vale l'uguaglianza sse $x$ e $y$ sono indipendenti
+
+\subsection { Formula del "quadrato di un binomio " }
+Dati $ x,y \in \R ^ n $ vale $$ | x+y | ^2 = |x| ^ 2 + 2 \langle x,y \rangle + |y|^2 $$
+La dimostazione avviene con le proprietà del prodotto scalare.
+Dalla formula sopra segue che, se $ x \perp y $ in $ \R ^ n $, allora vale
+$$
+| x +y | ^ 2 = | x | ^ 2 + | y | ^ 2 
+$$ 
+\textbf { Teorema dio Pitagora }
+
+\subsection { Disuguaglianza triangolare }
+Ancora della formula del "quadrato di un binomio" si può ottenere la dimostazione della disuguaglianza triangolare
+$$
+|x+y| \le |x| + |y| \quad \forall x,y \in \R ^ n 
+$$
+Infatti
+$$
+| x+y |^2 = |x|^2 + |y|^2 +2 \langle x, y \rangle \\
+\le \text{ (per Clauchy-Schwarz)} \le |x|^2 + |y|^2 +2 | x | \cdot | y| \\
+= \left ( | x|+|y| \right ) ^2 \quad \forall x,y \in \R ^ n
+$$
+\subsection{Definizione distanza}
+$ \forall x,y \in \R ^ $ la distanza tra $x$ e $y$ è 
+$$
+| x-y |
+$$
+
+\subsection{ Intorni sferici o dischi o palle }
+Dato $ x \in \R ^ n $ (centro) e $ r > 0 $ (raggio), poniamo
+$$
+B(x,r)= \left \{ y \in \R ^ n \mid |y-x| < r \right \} \mbox{(palla con centro x e raggio r)}
+$$
+
+\subsection{ Definizione insieme limitato } 
+Sia $A \subseteq \R ^n $ , si dice limitato se $ \exists R > 0 $ t.c $ A \subseteq B(0,R) $ 
+
+\subsection { Insieme aperto } 
+Sia $ A \subseteq \R ^ n $ si dice aperto se
+$$
+\forall x \in A \exists r > 0 \mbox{ t.c } B(x,r) \subseteq A
+$$
+\paragraph{Esempi: } Gli intervalli $]a,b[$, i rettangoli $ A = I \time J \subseteq \R ^ 2 $ con $I,J$ aperti in \R . 
+
+\section{ Sucessioni in \R ^ n }
+Sia $ (x_k)_{k \in \N} $ una sucessione in $\R ^ n \quad \forall k \in \N$
+\subsection {Definizione} 
+$ (x_k)_{k \in \N} $ sucessione in $ \R ^ n$ ; $ x \in \R ^ n $
+Si dice $ x_k \to x $ per $ k \to + \infty $ se vale 
+$$
+\lim_{k \to + \infty} x^j_k = x^j \quad \forall j \in \{ 1,2, \dots , n \}
+$$
+\paragraph {  Equivalentemente} se vale  $ lim_{k \to + \infty} | x_k -x | =0
+
+\section{Funzioni di più variabili} 
+$ A \subseteq \R ^ n, B \subseteq \R ^ q$. Data $ f: A \to B$ , il grafico di f è
+$$
+Graf(G)= \{ (x,f(x)) \mid x \in A \} \subseteq A \times B 
+$$
+
+\subsection { Definizione funzione continua} $f: A \to B$ (con $ A \subseteq \R^n , B \subseteq \R ^ q $)
+
+f si dice continua se $ \overline x $ se vale quanto segue:
+$$
+\forall  (x_k)_{k \in \N} \mbox{, $(x_k)$ sucessione in A, } x_k \xrightarrow[k \to + \infty]{ } \overline x \\ 
+\implies f( x_k ) \to f( \overline x ) \quad k \to + \infty
+$$
+
+Si dimostra che la definizione di continuà "per sucessioni" opportuna data è equivalente alla seguente:
+$$ f: A \to B \ continua \ in \ x \in A \ se 
+
+\forall \varepsilon > 0 \exists \delta \ t.c\ |f(x)-f( \overline x ) | < \varepsilon
+
+\forall x \in A \cap B (x, \delta)
+$$
+\end{document}

@@ -1,0 +1,142 @@
+\documentclass[a4paper]{article}
+\usepackage{settings}
+\section{Somma di Reimann}
+Dato $ [a,b] \subseteq \R $, fissato n $\in \N $\\
+poniamo $h = {b-a \over n}$ e \\
+$ x_0 = a, \ x_1 = a+h,\ x_2 = a + 2 h , \dots,\ x_n=a+nh \\
+
+$\forall k \in \{ 1, \dots,n\} $ fissiamo $ \xi_k \in [x_k-1,x_k] $\\
+
+Sia f continua su $[a,b]$. Poniamo
+$$
+S_n = \sum_{k=1}^n f(\xi_k) h = \sum_{k=1}_n f (\xi_k) {b-a \over n}
+$$
+$S_n$ = somma di Riemann n-esima
+\paragraph{Nota} $S_n$ dipende dalla scelta di $\xi_1, \dots, \xi_n $ , che è arbitraria
+
+\paragraph{Osservazione} $ a=b \Rightarrow S_n = 0 \forall n
+\paragraph{Osservazione} $ \forall x \in [a,b] . f(x) = c \Rightarrow S_n =  c (b-a) $ \\
+Dunque $ (S_n)_{n \in \N} $ è costante , in questi casi
+
+\subsection{Teorema} f continuia in $[a,b]$. Allora $ \exists \lim S_n \ finito $ t.c limite ** dipende dalla $ n \to + \infty$ sulla retta dei punti $ \xi_1 , \dots , \xi_n$ fatta nella costurzuone sopra
+
+Si scrive
+$$
+\lim_{n \to + \infty} S_n = \int_a^b f(x) dx = \int_a^b f
+$$
+e si dice che f è integrabile
+
+\paragraph{Osservazione} dalle precedenti osservazioni si deduce \\ $ \int_a^a f(x) dx =0 \ e \\ \int_a^b c dx = c(b-a)
+
+\paragraph{Osservazione} Esistono funzioni discontinue per cui $ \nexists \lim_{n \to \infty} S_n$ oppure dipende dalla scelta dei punti $ \xi_1 , \dots, \xi_n $ fatta ad ogni passo
+
+\paragraph{Osservazione} Se f ha un numero finito di punti di discontinuità (con salto finito) allora f è integrabile.
+
+\section{Proprietà dell'integrale}
+
+\begin{enumerate}
+	\item \textbf{Linearità:} f,g continue su $[a,b],\ \lambda,\mu \in \R$ \\
+		Allora $ \lambda f + \mu g $ è integrabile e vale
+		$$
+		\int_a^b [\lambda f + \mu g] = \lambda \int_a^b f + \mu \int_a^b g
+		$$
+
+	\item \textbf{Additività:} $ f: \R \to \R integrabile $ \\ Allora
+		\forall a,b,c \in \R \ vale \\$
+		$$\int_a^b f = \int_a^c f + \int_c^b f$$
+	\item \textbf{Monotomia:} f,g continue su $[a,b]$ \\
+		$$\forall x \in [a,b]  f(x) \le g(x) \Rightarrow
+			\int_a^b f \le \int_a^b g \quad con \ a<b
+		$$
+	\item \textbf{Convenzione:}
+		$$
+			\forall a,b \int_a^b f = - \int_b^a f
+		$$
+\end{enumerate}
+
+\section{Teorema della media integrale}
+f continua su $[a,b]$, allora $ \exists c \in [a,b] \ t.c $\\
+$$
+{1 \over b-a} \int_a^b f(x) dx = f(c)
+$$
+\paragraph{Dimostazione:} Siano $x_0$ e $x_1$ punti di minimo e massimo assoluti (Wiestrass). Allora \\
+$$ 	\forall x \in [a,b] . f(x_0) \le f(x) \le f(x_1)\\
+	\Rightarrow \underbrace{\int_a^b f(x_0) dx}_{f(x_0)(b-a)} \le \int_a^b f(x) dx \le \underbrace{\int_a^b f(x_1) dx}_{f(x_1)(b-a)}
+$$
+Divido per $b-a$ e trovo
+$$
+f(x_0) \le {1 \over b-a} \int_a^b f(x) dx \le f(x_1)
+$$
+Per il teorema dei valori intermedi applicato a f, $$ \exists c \in [a,b] \ t.c \ f(c) ={1 \over b-a} \int_a^b f(x) dx \le f(x_1)
+$$
+
+\section{La primitiva di una funzione}
+
+\subsection{Definizione} $ f:\ ]a,b[ \to \R. \ F:\ ]a,b[ \to \R$ si dice primidiva di $f$ su $]a,b[$ se vale $F'(x)=f(x) \ \forall x \in ]a,b[
+
+\paragraph{Osservazione:} Se F è la primitiva di f su ]a,b[,\\ allora $H: ]a,b[ \to \R,\ H(x)=F(x)+C$ è primitiva di $f\ \forall c \in \R$
+
+\paragraph{Osservazione personale:} Le primitive di una funzione f sono infinite, e sono tutte quelle che assumono una forma riconducibile a F(x)+C, dove `C' è un valore scalare
+
+\subsection{Proposizione:} siano F e G primitive di f su ]a,b[. Allora
+$$
+	\exists k \in \R : \ F(x)-G(x) = k \quad \forall x \in ]a,b[
+$$
+\paragraph{Dimostazione:} usiamo $ H:]a,b[ \to \R,\ H(x)=F(x)-G(x).$
+	Vale $ H'(x)=0 \forall x \in ]a,b[ $ e dunque H è costante su $]a,b[$
+
+\paragraph{Osservazione:} La proposizione è valida purché si lavori su un intervallo $]a,b[$
+
+
+\section{Funzioni integrali}
+\subsection{Definizione} data $f: \ ]a_0,a_0[ \to \R $ continua e $c \in \R$ \\
+definiamo $$
+\underbrace{I_c}_{(Funzione\ integrale\ di\ punto\ base\ c)} : \ ]a_0,b_0[ \to \R, \ I_c(x) = \int_c^x f(t) dt
+$$
+
+\subsection{Proprietà di $I_c$}
+\begin{enumerate}
+		\item $ I_c(c)=0 $
+		\item Dati $ c_1,c_2 \in ]a_0,b_0[,$
+			$$
+			I_{c_1}(x) - I_{c_2}(x) = \int_{c_1}^{c_2} f(t) dt \Rightarrow I_{c_1} - I_{c_2} \ è \ costante
+			$$
+\end{enumerate}
+
+\subsection{Teorema fondametale del calcolo integrale}
+Sia $f$ continua su $]a_0,b_0[$, sia $c \in ]a_0,b_0[$ \\ 
+Allora $\forall x \in ]a_0,b_0[\ vale\ I_c' (x) = f(x) $
+
+\paragraph{Dimostazione: } Bisogna trovare 
+$$
+\lim_{h \to 0} { I_c(x+h) - I_c(x) \over h} = f(x)
+$$
+
+$ \forall x \in ]a_0,b_0[$ Guardiamo il limite destro; \\ dunque dobbiamo provare che $ \forall h_n \to 0^+ $ \\
+$$ h_n > 0 \forall n\ \text{vale}\ {I_c(x+h_n) - I_c(x) \over h_n} \xrightarrow[n \to + \infty]{} f(x) $$
+Si scrive
+$$
+	I_c(x+h_n)-I_c(x) = \int_c^{x+h_n} f - \int_c^x f = \int_x^{x+h_n}\! f(t)dt
+$$
+
+Per teorema della media integrale $$ \exists c_n \in [x_1,x+h_n]\ t.c\ {1 \over h_n} \int_x^{x+h_n} f(t)dt = f(c_n).$$
+Poiché f è continua e $ c_n \to x $, si ottiene $ f(c_n) \to f(x) $. \textbf{qed}
+
+\subsection{Teorema fondametale del calcolo 2 o Formula di Torricelli}
+
+Se f è continua su $]a_0,b_0[$ e se F è primitiva di f su $]a_0,b_0[$ allora $\forall a,b \in ]a_0,b_0[$ vale:
+$$
+\int_a^b f(x)dx = F(b)-F(a)
+$$
+\paragraph{Dimostazione:} Sia $c \in ]a_0,b_0[$ \\
+$I_c$ e $F$ sono le primitive di $f$ si $]a_0,b_0[$. \\
+Per il teorema di caratterizzatione delle primitive $$\exists k \in \R \ t.c\ F(x)=I_c(x)+k \forall x \in ]a_0,b_0[ $$
+Dunque
+$$
+	F(b)-F(a)=I_c(b)+k-I_c(a)+k=I_c(b) -I_c(a) = \int_c^b f - \int_c^a f= \int_a^b f(x)dx
+$$
+\textbf{qed}
+
+
+
+

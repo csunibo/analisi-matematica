@@ -1,0 +1,176 @@
+\documentclass[a4paper]{article}
+
+\usepackage{settings}
+
+\begin{document}
+
+\section{Derivate parziale}
+\paragraph{Def:} $A \subseteq \R ^2$ aperto, $f: A \to \R,\ (\overline x, \overline y) \in A$
+
+Poniamo
+$$
+{ \partial f \over \partial x } (\overline x, \overline y) = \lim_{h \to 0} { f(\overline x+h, \overline y) - f(\overline x, \overline y) \over h } \\
+$$
+
+e
+$$
+{ \partial f \over \partial y } (\overline x, \overline y) = \lim_{h \to 0} { f(\overline x, \overline y +h) - f(\overline x, \overline y) \over h } \\
+$$
+
+Se i due limiti esistono (finiti), diciamo che f è derivabile parziamente in (\overline x, \overline y).
+
+Poniamo
+$$
+\nabla f(\overline x, \overline y) = ( \partial_x f(\overline x, \overline y), \partial_y f(\overline x, \overline y))
+$$
+gradiente di $f$
+
+Più in generale, se $A \subseteq \R ^n$, $f: A \to \R ^n$, $\ox = (\ox_1, \ox_2, \dots, \ox_n) \in A$ e $j \in \{1, \dots, n\}$, $e_1, \dots, e_n$ basi canoniche in $\R ^n$
+
+Poniamo
+$$
+{ \partial f \over \partial x }(\ox) = \lim_{h \to 0} { f( \ox + h e_j) - f(\ox) \over h} \\
+$$
+$(anche\ \partial_j f(\ox))$. Derivate parziali rispetto $x_j$
+
+\section{Derivabilità e continuità}
+Ci chiediamo se l'esitenza della derivate parziali implichino la continuità. La risposta è negativa grazie al segiente esempio
+\paragraph{ES} $f: \R ^ 2 \to \R$, $ f(x,y)= \begin{cases} { xy \over x^2 +y^2} \quad se\ (x,y) \neq (0,0) \\ 0 \quad se\ (x,y) = (0,0) \end{cases}$
+	\begin{enumerate}
+		\item $ \exists \partial_x f(0,0), \partial_y f(0,0) $
+		\item $f$ è discontinua in $(0,0)$
+	\end{enumerate}
+\subparagraph{verifica di 1}
+$$
+\partial_x f(0,0) = \lim_{h \to 0} {f(h,0) -f(0,0) \over h} = \lim_{h \to 0} { {h*0 \over h^2 + 0^2} - 0 \over h} = \lim_{h \to 0} {0 \over h} = 0
+$$
+Analogamente $\partial_x f(0,0) = 0$
+
+\subparagraph{Verifica di 2} Usiamo la definizione ``per sucessioni": troviamo, segliendo $ (x_n,y_n) = ({1 \over n},{1 \over n}) \to (0,0)$
+$$
+f(x_n,y_n)= { {1 \over n}*{1 \over n} \over {1 \over n^2}+{1 \over n^2}} = {1 \over 2} \xrightarrow[n \to \infty] {} {1 \over 2} \neq 0 \quad \forall n \in \N
+$$
+Dunque $f$ non è continua in $(0,0)$
+
+\section{ Differenziabilità }
+Ricordiamo che $f: \R \to \R$ è derivabile in $\ox$ con derivata $f'(\ox)$ se e solo se
+$$
+f(\ox+h)=f(\ox)+f'(\ox)h+ o(h)
+$$
+dove il resto $o(h)$ soddisfa $$ \lim_{h \to 0} \left | {o(h) \over h } \right | =0 $$
+equivalente
+$$
+\forall \varepsilon > 0 \exists \delta > 0 \ t.c\ \left | {o(h) \over h } \right | < \varepsilon \quad \forall h \in ]-\delta,\delta[
+$$
+
+\subsection{ Definizione di "o piccolo" in $\R^2$}
+\paragraph{Def} Sia $A \subseteq \R ^n$ un insieme aperto contenete $(0,0)$
+
+Sia $g:A \subseteq \R$ e sia $p \ge 0$.
+
+Si scrive $g(h,k) = o( \| (h,k) \|)$ per $(h,k) \to (0,0)$ se vale
+$$
+\forall \varepsilon > 0 \exists \delta > 0\ t.c\ \left | {o(h) \over h } \right | < \varepsilon \quad \forall (h,k) \in A \cap B((0,0), \delta)
+$$
+
+\paragraph{Esempi:} 
+$$
+g(h,k) = hk = o (|(h,k)|) \quad per\  (h,k) \to (0,0)
+
+g(h,k) = \sqrt{|h| ^ {1/2}} = o (|(h,k)|) = o(1)
+
+g(h,k) = h^2k + k^3 = o (|(h,k)|^2) \quad (h,k) \to (0,0)
+$$
+
+\subsection { Def. funzione differenziabile}
+$ A \subseteq \R ^2 $, $f:A \to \R$, $(\overline x, \overline y) \in A$. (A aperto) 
+Si dice che $f$ è differenziabile in $(\overline x, \overline y)$ se
+\begin{enumerate}
+	\item $\exists \partial_x f (\overline x, \overline y), \partial_y f(\overline x, \overline y) \in \R$
+	\item $\forall (h,k) \ t.c\ (\overline x, \overline y)+(h,k) \in A$ vale lo sviluppo:$$
+		f((\overline x, \overline y)+(h,k))=f(\overline x, \overline y)+ \langle \nabla f(\overline x, \overline y),(h,k) \rangle + o (|(h,k)|) \quad per\ (h,k) \to (0,0)
+		$$
+\end{enumerate}
+
+\paragraph{Osservazione:} $f$ differenziabile in $(\overline x, \overline y) \in A \implies f$ continua in $(\overline x, \overline y)$.
+		Basta osservare che $\forall (h_n,k_n) \xrightarrow[n \to \infty]{} (0,0)$ risulta 
+
+		$f(\overline x, \overline y)+(h_n,k_n))-f(\overline x, \overline y) = \langle \nabla f (\overline x, \overline y),(h_n,k_n) \rangle + o(|(h_n,k_n)|)$
+
+Nelle coordinate $ (\overline x+h, \overline y+k)=(x,y) \in A $ si scrive:
+$$
+f(x,y) = f(\overline x, \overline y)+\langle \nabla f (\overline x, \overline y), (x-\overline x, y-\overline y) \rangle + o (|(x-\overline x, y-\overline y)|) \quad (x,y) \to (\overline x, \overline y)
+$$
+Da questa formula emerge
+$$
+T_1(x,y) = f(\overline x, \overline y)+\langle \nabla f (\overline x, \overline y), (x-\overline x, y-\overline y) \rangle
+$$
+$T_1$ = Polinomio di Taylor del primo ordine con punto iniziale $(\overline x, \overline y)$
+
+Infine $\{(x,y,z)\in \R^3 \mid z = T_1(x,y)\}$ è il piano tangente al grafico di $f$ in $(\overline x, \overline y,f(\overline x, \overline y))$.
+
+\subsection{Teorema della differenziabilità}
+\begin{center}
+Se $f$ è $C^1$ su $A \in \R^2$, $A$ aperto, allora $\forall (\ox,\oy) \in A$ $f$ è differenziabile.
+\end{center}
+
+\subsubsection{Lemma preliminare}
+Se $f:A \to \R$ è $C^1$ sull'aperto $A \subseteq \R^2$, $\forall (\ox,\oy) \in A$, $\forall h,k \in \R$
+
+Tali che $(\ox +h , \y)$, $(\ox, \oy+k) \in A$, esistono $\theta _1, \theta_2 \in ]0,1[$ tali che 
+$$
+f(\ox+h, \oy) - f(\ox, \oy) = \partial_x f (\ox + \theta_1 h , \oy) \quad e
+$$$$
+f(\ox,\oy +h) - f(\ox, \oy) = \partial_y f (\ox, \oy + \theta_2 k)
+$$
+
+\paragraph { Dim di 1 }
+Per semplicità $A = \R ^2$.
+
+Considero la funzione $g: \R \to \R,\ g(t)=f(t, \oy) $
+
+Si verifica che $g$ è derivabile e vale
+$$
+g(t) = \partial_x f (t,h) \quad \forall t \in \R
+$$
+Ora uso Lagrange sull'intervallo di estemi $\ox$ e $\ox + h$ per la funzione $g$. $\implies \exists \theta_1 \in ]0,1[$
+tale che $g(\ox +h ) - g(\ox) = g'(\ox + \theta_1, h) h $
+Trascrivendo in termini di $f$, si trova
+$$
+f(\ox+h , \oy) - g(\ox, \oy) = \partial_x f(\ox+\theta_1 h, \oy)h
+$$
+\paragraph{Dim 2} è analoga
+
+\subsubsection{ Dimostrazione del teorema sulla differenziabilità}
+Per semplicità $A=\R^2$,\ f:\R^2 \ot \R$ classe $C^1$ e $(\ox,\oy) \in \R^2$. Per $(h,k) \in \R^2$ vale
+$$
+f(\ox+h,\oy+k)-f(\ox,\oy)=[f(\ox+h,\oy+k)-f(\ox+h,\oy]+[f(\ox+h,\oy)-f(\ox,\oy)] := (1)+(2)
+$$
+Grazie al lemma precendente $ \exists \theta_1 , \theta_2 \in ]0,1[$ tali che
+\begin{enumerate}
+	\item $= \partial_y f (\ox +h , \oy + \theta_1 k) k $
+	\item $= \partial_x f (\ox + \theta_2 h , \oy ) h $
+\end{enumerate}
+Per concludere, basta mostrare che per $(h,k) \to (0,0) $
+\begin{enumerate}
+	\item $= \partial_y f ( \ox , \oy ) k + o(|(h,k)|) $
+	\item $= \partial_x f (\ox , \oy) k + o(|(h,k)|) $
+\end{enumerate}
+In altri termini basta vedere che (qualizziamo (2), ad esempio)
+$ \forall \varepsilon > 0 \ \exists \delta >0$ tali che 
+
+$$ {  | \partial_x f(u,v) - \partial_x f (\ox , \oy) | < \varepsilon 
+\over |(h,k)|
+} \quad \forall (h,k) \neq (0,0) \ \ |(h,k) < \delta $$
+Siccome $\partial_xf$ è continua, $ \forall \varepsilon > 0 \ \exists \delta > 0$ tali che 
+$$
+| \partial_xf(u,v) - \partial_xf (\ox, \oy) | < \varepsilon \quad
+\forall (u,v) \in B((\ox , \oy ) , \delta)
+$$
+Con questa scelta di $\delta$ , usando $\left |{ h \over |(h,k)| } \right | \le 1 $, abbiamo
+$$ | \partial_xf( \ox + \theta_2h , \oy ) - \partial_xf ( \ox , \oy) | < \varepsilon $$
+perchè $( \ox + \theta_2 h , \oy ) \in B (( \ox,\oy), f) \ \forall \theta_2 \in ]0,1[, \ \forall (h,k) \in B((0,0), \delta) $
+
+L'analisi del termine (1) si svolge in modo analogo
+
+\end{document}

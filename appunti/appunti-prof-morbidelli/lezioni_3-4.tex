@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{settings}
+\begin{document}
+\section{Integrazione per parti}
+
+Viene usata nei casi come $ \int x^k \sin x $
+
+\subsection{Variante del teorema fondamentale del calcolo}
+
+\paragraph{Proposizione:} Sia $ h: I\to J \text{ derivabile e } f:J \to \R$ continua ($I,J \subseteq \R$ intervalli aperti.
+Definiamo $F:I \to \R$
+$$
+F(x) = \int_c^{h(x)} f(t)dt
+	$$
+Allora $F$ è derivabile in ogni $x \in I$ e vale  $F'(x)=f(h(x))h'(x)$.
+
+\paragraph{Dimostrazione:} scrivo $$I_c(z) = \int_c^z f(t)dt \quad \forall z \in J$$
+Allora si scrive $ F=I_c \circ h$. \\
+Dalla formula per la derivata di funzioni composte otteniamo $$ F'(x) = I_c'(h(x))h'(x) = f(h(x))h'(x) $$
+
+
+\section{Formula per il cambio variabile}
+\paragraph{Teorema:} $I,J$ intervalli aperti, $h: I \to J$ con derivata $h'$ continua su $I$ \\
+$f:J \to \R$ continua. \quad Allora $ \forall \alpha , \beta \in I $ vale
+$$
+\int_{h(\alpha)}^{h(\beta)} f(x)dx = \int_\alpha^\beta f(h(t))h'(t)dt
+$$
+
+\paragraph{Dimostrazione:} siano $F: I \to \R, G: I \to R, F(z)= \int_{h(\alpha)}^{h(z)} f(x)dx , G(z) = \int_\alpha^z f(h(t))h'(t)dt $ \\
+Le funzioni integrande sono continue, $h'$ è continua. Dunque $F$ e $G$ sono derivabili in $I$. \\
+Vale $F'(z)=f(h(z))h'(z)$ e $G'(z)=f(h(z))h'(z) \quad \forall z \in I$ \\
+Dunque $F-G$ è costante su $I$. \\
+Poiché $F(\alpha)=0, G(\alpha)=0$, si conclude che $F(z)=G(z) \quad z \in I$
+
+\section{Integrali generalizzati}
+\paragraph{Definizione} $f:[a,+ \infty[ \to \R$ continua. \\ Si dice che f è integrabile in senso generalizzato su $[a,+\infty[$ se
+$$
+\exists \lim_{z \to + \infty} \int_a^z f(x)dx =: \int_a^{+ \infty} f(x)dx
+$$
+La definizione per $f : ]-\infty,b] \to \R$ è omessa perché analoga
+
+\paragraph{Definizione:} $f:]a,b] \to \R$, continua. Si dice che $f$ è integrabile in senso generalizzato su $]a,b]$ se 
+$$
+\exists \lim_{z \to a^+} \int_z^b f(x)dx =: \int_a^b f(x)dx
+
+\end{document}
