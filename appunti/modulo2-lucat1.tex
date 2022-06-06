@@ -1,0 +1,2049 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[italian]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{enumerate}
+\hfuzz=100.0pt  % ignore paragraph lengths warnings
+
+\usepackage[hidelinks]{hyperref}
+
+\title{Appunti di Analisi (prettamente 2)}
+\author{Luca Tagliavini}
+\date{Sometime in June 2021}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\pagebreak
+
+\section{Formule}
+
+\subsection{Formule goniometriche}
+
+\begin{align*}
+  \sin^2 x = \frac{1-\cos(2x)}{2} \\
+  \cos^2 x = \frac{1+\sin(2x)}{2}
+\end{align*}
+
+\subsection{Prodotto scalare}
+
+Presi due vettori $\overline{u} = (u_1, u_2, \ldots, u_n), \overline{v} = (v_1, v_2, \ldots, v_n) \in \mathbb{R}^n$
+si definisce il loro \emph{prodotto scalare} (o prodotto intero) come:
+
+\begin{align*}
+  \langle \overline{u}, \overline{v} \rangle = u_1 v_1 + u_2 v_2 + \ldots + u_n v_n = \sum_{k=1}^n u_k v_k
+\end{align*}
+
+\begin{quote}
+  NOTA: se il prodotto scalare e' nullo i due vettori sono perpendicolari.
+\end{quote}
+
+\subsection{Norma euclidea}
+
+Dato un vettore $v = (v_1, v_2, \ldots, v_n) \in \mathbb{R}^n$ definiamo la sua 
+norma come:
+
+\begin{align*}
+  \| v \| = \sqrt{v_1^2 + v_2^2 + \ldots + v_n^2} = \sqrt{\sum_{k=1}^n v_k^2} = \sqrt{\langle v, v \rangle}
+\end{align*}
+
+\subsubsection{Vettore di norma unitaria}
+
+Un \emph{vettore di norma unitaria}, o \emph{versore}, e' un vettore la cui norma
+ha valore $1$. Un qualunque vettore puo' essere reso versore dividendolo per la
+sua norma. Preso $v = (v_1, v_2, \ldots, v_n) \in \mathbb{R}^n$ scriviamo il
+vettore di norma unitaria come:
+
+\begin{align*}
+  v_{uni} = \frac{v}{\|v\|} = (\frac{v_1}{\|v\|}, \frac{v_2}{\|v\|}, \ldots, \frac{v_n}{\|v\|})
+\end{align*}
+
+\subsection{Gradiente}
+
+Dato $A \subseteq \mathbb{R}^n$ e $f : A \to \mathbb{R}$ possiamo
+definire il \emph{gradiente di $f$} per un suo generico punto $(x_1, x_2,
+\ldots, x_n)$ derivabile in tutte le variabili $x_1, x_2, \ldots, x_n$ come:
+
+\begin{align*}
+  \nabla f(x_1, x_2, \ldots, x_n) = (f_{x_1}(x_1, x_2, \ldots, x_n),
+  f_{x_2}(x_1, x_2, \ldots, x_n), \ldots, f_{x_n}(x_1, x_2, \ldots, x_n))
+\end{align*}
+
+\begin{quote}
+  NOTA(1): il gradiente in un dato punto calcola il \emph{vettore di direzione di
+  massima crescita} per quella funzione in quel punto.
+\end{quote}
+
+\begin{quote}
+  NOTA(2): un punto in cui vale $\nabla f(\overline{v}) = \overline{0}$ si chiama
+  \emph{punto stazionario} o \emph{punto critico}. Tali punti sranno poi studiati
+  tramite le tecniche elencate di seguito.
+\end{quote}
+
+\subsection{Derivata direzionale}
+
+Dati $f: A \subseteq \mathbb{R}^n \to \mathbb{R}$ e $v \in \mathbb{R}^n, \|v\| = 1$
+(v di norma unitaria), tali che si possa calcoalre il gradiente di $f$ nel punto
+$(x_1, x_2, \ldots x_n)$, la \emph{derivata direzionale} puo' essere calcolata come:
+
+\begin{align*}
+  \frac{\delta f}{\delta v}(x_1, x_2, \ldots, x_n) = \langle \nabla f(x_1, x_2, \ldots, x_n), v \rangle
+\end{align*}
+
+\subsection{Matrice Hessiana}
+
+La \emph{Hessiana} di una funzione in piu' variabili $f: A \subseteq \mathbb{R}^n
+\to \mathbb{R}$ e' la matrice quadrata $A \in M_{n, n} (\mathbb{R})$ tale che:
+
+\begin{align*}
+  H_f(\overline{v}) =
+  \begin{bmatrix}
+    \frac{\delta^2 f}{\delta v_1^2}(\overline{v}) &
+    \frac{\delta^2 f}{\delta v_1 v_2}(\overline{v}) & \ldots &
+    \frac{\delta^2 f}{\delta v_1 v_n}(\overline{v}) \\
+    \frac{\delta^2 f}{\delta v_2 v_1}(\overline{v}) &
+    \frac{\delta^2 f}{\delta v_2^2}(\overline{v}) & \ldots &
+    \frac{\delta^2 f}{\delta v_2 v_n}(\overline{v}) \\
+    \vdots & \vdots & \ddots & \vdots \\
+    \frac{\delta^2 f}{\delta v_n v_1}(\overline{v}) &
+    \frac{\delta^2 f}{\delta v_n v_2}(\overline{v}) & \ldots &
+    \frac{\delta^2 f}{\delta v_n^2}(\overline{v})
+  \end{bmatrix} \text{ con } \overline{v} \in A
+\end{align*}
+
+\subsection{Determinante}
+
+Il \emph{determinante} di una funzione e' un numero univoco associato ad ogni matrice
+calcolabile tramite varie tecniche. Poiche' lavoreremo quasi sempre con matrici quadrate
+$2 \times 2$ impariamo il metodo piu semplice:
+
+\subsubsection{Determinante di matrici $1 \times 1$}
+Dove $A \in M_{1} (\mathbb{R})$, ovvero $A$ e' una matrice $1 \times 1$
+contenente un solo numero ($a_{1,1}$), vale $det(A) = a_{1,1}$.
+
+\subsubsection{Determinante di matrici $2 \times 2$}
+
+Data la matrice $A = \begin{bmatrix} a & b \\ c & d \end{bmatrix}$ il suo
+determinante e' dato dalla seguente formula, simile a quella del delta per le
+eqauzioni di secondo grado (non a caso):
+
+\begin{align*}
+  det(A) = (a \cdot d) - (b \cdot c)
+\end{align*}
+
+\subsection{Segno di una matrice Hessiana}
+
+Data una funzione $f: \mathbb{R}^n \to \mathbb{R}$ di cui si puo' calcolare la
+matrice Hessiana $H_f(\overline{v}) = \begin{bmatrix} a & b \\ c & d \end{bmatrix}$,
+si puo' classificare un dato punto $\overline{v}$ in base al valore di $det(H_f(\overline{v}))$:
+
+\begin{enumerate}
+  \item $det(H_f(\overline{v})) > 0, a > 0
+    \longrightarrow H_f$ \textbf{definita positiva} (minimo)
+  \item $det(H_f(\overline{v})) > 0, a < 0
+    \longrightarrow H_f$ \textbf{definita negativa} (massimo)
+  \item $det(H_f(\overline{v})) < 0 \longrightarrow H_f$
+    \textbf{indefinita} (sella)
+  \item $det(H_f(\overline{v})) = 0 \longrightarrow H_f$
+    \textbf{semidefinita} (non possiamo dire nulla)
+\end{enumerate}
+
+\subsection{Studio di punti critici}
+
+Dato un punto critico $(x_1, \ldots, x_n)$ e l'Hessiana della funzione $H_f(x_1, \ldots, x_n)$
+per determinare il tipo di punto critico possiamo valutare l'Hessiana nel punto
+dato e studiare il segno della matrice secondo il seguente teorema:
+
+\begin{enumerate}
+  \item $H_f$ definita \textbf{positiva} allora $(x_1, \ldots, x_n)$ punto di minimo
+  \item $H_f$ definita \textbf{negativa} allora $(x_1, \ldots, x_n)$ punto di massimo
+  \item $H_f$ \textbf{indefinita} allora $(x_1, \ldots, x_n)$ punto di sella
+  \item $H_f$ \textbf{semidefinita} non possiamo dire nulla
+\end{enumerate}
+
+\subsection{Taylor in due variabili (prim'ordine)}
+
+Data una funzione $f: A \subseteq \mathbb{R}^n \to \mathbb{R}$ di classe $C^1$ e
+un punto $(x_0, y_0)$, l'equazione del polinomio di Taylor al prim'ordine per
+funzioni in due variabili e' come segue:
+
+\begin{align*}
+  T_1(x, y) = f(x_0, y_0) + \langle \nabla f(x_0, y_0), (x - x_0, y - y_0) \rangle
+\end{align*}
+
+In egual modo, usando la notazione piu' compatta $v = (x, y)$ e $\overline{v} = (x_0, y_0)$:
+
+\begin{align*}
+  T_1(v) = f(\overline{v}) + \langle \nabla f(\overline{v}), v - \overline{v} \rangle
+\end{align*}
+
+\subsection{Taylor in due variabili (secondo ordine)}
+
+Data una funzione $f: A \subseteq \mathbb{R}^n \to \mathbb{R}$ di classe $C^2$ e
+un punto $(x_0, y_0)$, l'equazione del polinomio di Taylor al secondo ordine per
+funzioni in due variabili e' come segue:
+
+\begin{align*}
+  T_2(x, y) &= f(x_0, y_0) + \langle \nabla f(x_0, y_0), (x - x_0, y - y_0) \rangle \\
+    &+ \frac{1}{2} \langle H_f(x_0, y_0) (x - x_0, y - y_0), (x - x_0, y - y_0) \rangle
+\end{align*}
+
+In egual modo, usando la notazione piu' compatta $v = (x, y)$ e $\overline{v} = (x_0, y_0)$:
+
+\begin{align*}
+  T_2(v) &= f(\overline{v}) + \langle \nabla f(\overline{v}), v - \overline{v} \rangle \\
+    &+ \frac{1}{2} \langle H_f(\overline{v}) (v - \overline{v}), (v - \overline{v}) \rangle
+\end{align*}
+
+\begin{quote}
+  OSS: L'ultimo prodotto scalare, viene spesso riportato in modo esplicito come segue:
+  \begin{align*}
+    &\frac{1}{2} \langle H_f(x_0, y_0) (x - x_0, y - y_0), (x - x_0, y - y_0) \rangle = \\
+    &\frac{1}{2} [f_{xx}(x_0, y_0)(x-x_0)^2 + 2f_{xy}(x_0, y_0)(x-x_0)(y-y_0), f_{yy}(x_0, y_0)(y-y_0)^2]
+  \end{align*}
+\end{quote}
+
+\subsection{OSS: formule di Taylor}
+
+Entrambe i polinomi di Taylor sopra riportati potrebbero essere scritti tramite il teorema di Taylor
+con resto secondo peano e usando variabili d'incremento $h, k$ tali che $h = x - x_0, k = y - y_0$:
+\begin{align*}
+  T_1(x_0 + h, y_0 + k) &= f(x_0, y_0) + \langle \nabla f(x_0, y_0), (h, k) \rangle + o(\|(h, k)\|) \\
+  T_2(x_0 + h, y_0 + k) &= f(x_0, y_0) + \langle \nabla f(x_0, y_0), (h, k) \rangle \\
+    &+ \frac{1}{2} \langle H_f(x_0, y_0) (h, k), (h, k) \rangle + o(\|(h, k)\|^2)
+\end{align*}
+
+\pagebreak
+
+\section{Teoria - I modulo}
+\subsection{Teorema: dell'unicità del limite}
+Presa $f: \mathbb{R} \to \mathbb{R}$
+
+\emph{Se}:
+
+\setlength{\parindent}{.25in}
+$
+  \exists \lim\limits_{x \to x_0} f(x) = l \in
+  \overline{\mathbb{R}} \Longrightarrow l \text{ è unico}
+$
+
+\subsection{Teorema: dei due carabinieri}
+$
+  f, g, h: \mathbb{I} \longrightarrow \mathbb{R} \quad \text{dove} \quad
+  \mathbb{I} \text{ è un intorno di } x_0
+$
+
+\begin{itemize}
+\item
+  $\forall x \in \mathbb{I} \quad f(x) \leq g(x) \leq h(x)$
+\item
+  $\lim\limits_{x \to x_0} f(x) = \lim\limits_{x \to x_0} h(x) = l \text{ con } l \in \mathbb{R}$
+\end{itemize}
+
+\noindent\emph{Allora}:
+
+\setlength{\parindent}{.25in}
+$\lim\limits_{x \to x_0} g(x) = l$
+
+\subsection{Teorema: degli zeri}
+Presa $f: [ \, a, b \, ] \longrightarrow \mathbb{R}$
+
+\begin{itemize}
+\item
+  $f$ \emph{continua} su $\boldsymbol{[} \, a, b \, \boldsymbol{]}$
+\item
+  $f(a) \cdot f(b) < 0$ (estremi con segno opposto)
+\end{itemize}
+
+\noindent \emph{Allora}:
+
+\setlength{\parindent}{.25in}
+$\exists c \in \; ] \, a, b \, [ \; : \quad f(c) = 0$
+
+\subsection{Teorema: di Weierstrass}
+Presa $f: [ \, a, b \, ] \longrightarrow \mathbb{R}$
+
+\begin{itemize}
+\item
+  $f$ \emph{continua} su $\boldsymbol{[} \, a, b \, \boldsymbol{]}$
+\end{itemize}
+
+\noindent\emph{Allora}:
+
+\setlength{\parindent}{.25in}
+  $
+    \exists x_1, x_2 \in \; [ \, a, b \, ] \; :
+  $
+
+\setlength{\parindent}{.25in}
+  $
+    f(x_1) = \min\limits_{[a, b]} f, \quad f(x_2) = \max\limits_{[a, b]} f
+  $
+
+\setlength{\parindent}{0in}
+  \text{\emph{o meglio}:}
+
+\setlength{\parindent}{.25in}
+  $f([a, b]) = [\min\limits_{[a, b]} f, \max\limits_{[a, b]} f]$
+
+\subsection{Teorema: di Fermat}
+$f: [ \, a, b \, ] \longrightarrow \mathbb{R}$
+
+\begin{itemize}
+\item
+  $\exists c \in \; ] \, a, b \, [ $ dove $c$ punto di \emph{max/min} relativo
+\item
+  $f$ \emph{derivabile} in $c$
+\end{itemize}
+
+\noindent\emph{Allora}:
+
+\setlength{\parindent}{.25in}
+$f'(c) = 0$
+
+\subsection{Teorema: di Rolle}
+Presa $f: [ \, a, b \, ] \longrightarrow \mathbb{R}$
+
+\begin{itemize}
+\item
+  $f$ e' \emph{continua} su $\boldsymbol{[} \, a, b \, \boldsymbol{]}$
+\item
+  $f$ e' \emph{derivabile} in $\boldsymbol{]} \, a, b \, \boldsymbol{[}$
+\item
+  $f(a) = f(b)$
+\end{itemize}
+
+\noindent\emph{Allora}:
+
+\setlength{\parindent}{.25in}
+$\exists c \in \; ] \, a, b \, [ \; : \quad f'(c) = 0$
+
+\subsection{Teorema: di Lagrange}
+Presa $f: [ \, a, b \, ] \longrightarrow \mathbb{R}$
+
+\begin{itemize}
+\item
+  $f$ e' \emph{continua} su $\boldsymbol{[} \, a, b \, \boldsymbol{]}$
+\item
+  $f$ e' \emph{derivabile} in $\boldsymbol{]} \, a, b \, \boldsymbol{[}$
+\end{itemize}
+
+\noindent \emph{Allora}:
+
+\setlength{\parindent}{.25in}
+$
+  \exists c \in \; ] \, a, b \, [ \; : \quad
+  \frac{f(b) - f(a)}{b - a} = f'(c)
+$
+
+\subsection{Teorema: di Cauchy}
+Presa $f, g: [ \, a, b \, ] \longrightarrow \mathbb{R}$
+
+\begin{itemize}
+\item
+  $f, g$ \emph{continue} su $\boldsymbol{[} \, a, b \, \boldsymbol{]}$
+\item
+  $f, g$ \emph{derivabili} in $\boldsymbol{]} \, a, b \, \boldsymbol{[}$
+\item
+  $g'(x) \neq 0 \qquad \forall x \in \boldsymbol{]} \, a, b \, \boldsymbol{[}$
+\end{itemize}
+
+\noindent \emph{Allora}:
+
+\setlength{\parindent}{.25in}
+$
+  \exists c \in \; ] \, a, b \, [ \; : \quad
+  \frac{f(b) - f(a)}{g(b) - g(a)} = \frac{f'(c)}{g'(c)}
+$
+
+\subsection{Teorema: di de l'Hopital}
+Presa $f, g: ] \, a, b \, [ \to \mathbb{R}$ dove $a, b \in \mathbb{R} \cup \{+\infty, -\infty\}$
+
+\begin{itemize}
+\item
+  $f, g$ \emph{derivabili} su $\boldsymbol{]} \, a, b \, \boldsymbol{[}$
+\item
+  che valga uno:
+  \begin{enumerate}
+    \item
+      $\lim\limits_{x \to a^+} \frac{f(x)}{g(x)} = [\frac{0}{0}] \text{ oppure } [\frac{\infty}{\infty}]$
+    \item
+      $\lim\limits_{x \to b^-} \frac{f(x)}{g(x)} = [\frac{0}{0}] \text{ oppure } [\frac{\infty}{\infty}]$
+  \end{enumerate}
+\item
+  $g' \neq 0 \quad \forall x \in ] \, a, b \, [$
+\end{itemize}
+
+\noindent \emph{Allora}:
+
+\begin{enumerate}
+\item
+  $\lim\limits_{x \to a^+} \frac{f(x)}{g(x)} = \lim\limits_{x \to a^+} \frac{f'(x)}{g'(x)}$
+\item
+  $\lim\limits_{x \to b^-} \frac{f(x)}{g(x)} = \lim\limits_{x \to b^-} \frac{f'(x)}{g'(x)}$
+\end{enumerate}
+
+\pagebreak
+
+\section{Teoria - II modulo}
+
+\subsection{Def: Somme di Riemann}
+
+Presa $f: [a, b] \to \mathbb{R}$, $f$ continua e i punti $a = x_0, x_1, \ldots ,
+x_{n-1}, x_n = b$ con $n \in \mathbb{N}$ tali che $a = x_0 < x_1 < \ldots < x_{n-1},< x_n = b$.
+
+Scelgo poi la famiglia di punti $\varepsilon_1, \varepsilon_2, \ldots,
+\varepsilon_n$ scelti in modo arbitrario, ma tali che
+\begin{align*}
+  \varepsilon_k \in [x_{k-1}, x_k] \quad \forall k \in \{ 1, 2, \ldots, n \}
+\end{align*}
+
+Ora possiamo definire la \emph{somma di Riemann} $n$-esima relativa alla funzione $f$ come
+\begin{align*}
+  S_n &= f(\varepsilon_1) (x_1 - x_0) + f(\varepsilon_2) (x_2 - x_1) + \ldots + f(\varepsilon_n) (x_n - x_{n-1}) \\
+      &= \sum_{k=1}^n f(\varepsilon_k)(x_k - x_{k-1})
+\end{align*}
+
+\begin{quote}
+  \textbf{Teorema} (non dimostrato): la succcessione creata dalla somma di Riemann
+  facendo tendere la $n \to \infty$ converge sermpre ad un numero $k \in \mathbb{R}$.
+\end{quote}
+
+\subsection{Def: Integrale di una funzione}
+
+Prese $f, g : [a, b] \to \mathbb{R}$ tali che $f, g$ continue, l'integrale negli
+estremi $a$, $b$ rispetta le seguenti proprieta':
+
+\begin{enumerate}
+  \item \textbf{Linearita'}: dati $\alpha, \beta \in \mathbb{R}$ vale:
+    \begin{align*}
+      \int_a^b \alpha f(x) + \beta g(x) \, dx = \alpha \int_a^b f(x) \, dx + \beta \int_a^b g(x) \, dx
+    \end{align*}
+
+  \item \textbf{Additivita'}: presi $a, b, c \in ] a, b [$ tali che $a < c < b$ vale:
+    \begin{align*}
+      \int_a^b f(x) \, dx = \int_a^c f(x) \, dx + \int_c^b f(x) \, dx
+    \end{align*}
+
+  \item \emph{Convenzione}: $a < b$, altrimenti si applica la seguente regola:
+    \begin{align*}
+      \int_a^b f(x) \, dx = - \int_b^a f(x) \, dx
+    \end{align*}
+    Si noti come questa convenzione fa valere la proprieta' di additivita' anche
+    qual'ora i punti non siano nell'ordine $a < c < b$.
+
+  \item \textbf{Monotonia}: se $f(x) \geq g(x) \quad \forall x \in [a,b]$ allora:
+    \begin{align*}
+      \int_a^b f(x) \, dx \geq \int_a^b g(x) \, dx
+    \end{align*}
+\end{enumerate}
+
+\subsection{Teorema: media integrale}
+
+\emph{Enunciato}: Presa $f: [a, b] \to \mathbb{R}$ continua, allora $\exists z \in [a, b]$ tale che
+\begin{align*}
+  f(z) = \frac{1}{b-a} \int_a^b f(x) \, dx
+\end{align*}
+\begin{quote}
+  Per visualizzare, $z$ e' il punto tale che $f(z) \cdot (b-a)$, ovvero
+  l'area di altezza $f(z)$ e base $b-a$ vale esattamente $\int_a^b f(x) \, dx$.
+\end{quote}
+\emph{Dimostrazione}: \textbf{uso weierstrass, trovo min e max e so che f(x) e'
+compreso tra essi, poi uso la proprieta' della monotonia (cambio m, M con gli integrali),
+infine per il teorema dei valori intermedi arrivo a quello che volevo}. \\
+Da Weierstrass ho che $m = \min_{[a, b]} f, M = \max_{[a, b]} f$, allora $m \leq f(x) \leq M \quad
+\forall x \in \mathcal{D}(f)$. Per la \emph{proprieta' di monotonia} degli
+integrali ne segue che:
+\begin{align*}
+  \int_a^b m \, dx \leq \int_a^b f(x) \, dx \leq \int_a^b M \, dx
+\end{align*}
+Poiche' $k \in \mathbb{R} \int_a^b k \, dx = k(b - a)$ ho che:
+\begin{align*}
+  m(b-a) \leq &\int_a^b f(x) \, dx \leq M(b-a) \\
+  \frac{1}{b-a} \cdot m(b-a) \leq &\int_a^b f(x) \, dx \leq M(b-a) \cdot \frac{1}{b-a} \\
+  m \leq \frac{1}{b-a} &\int_a^b f(x) \, dx \leq M
+\end{align*}
+Per il teorema dei valori intermedi ho che 
+\begin{align*}
+  \exists z. f(z) = \frac{1}{b-a} &\int_a^b f(x) \, dx
+\end{align*}
+
+\qed
+
+\subsection{Def: Primitiva}
+
+Presa $f: ]a,b[ \to \mathbb{R}$ continua e dato $E \subseteq ]a, b[$ si dice che
+$F: E \to \mathbb{R}$ e' \emph{una primitiva} se vale $F'(x)=f(x) \forall x \in E$
+
+\begin{quote}
+  NOTA: Se $F$ e' una primitiva di $f$ su $E$ allora $\forall k \in \mathbb{R}$
+  la funzione $G(x) = k + F(x)$ e' ancora una primitiva di $f$ su $E$.
+\end{quote}
+
+\subsection{Teorema: caratterizzazione delle primitive di $f$ su un intervallo}
+
+\emph{Enunciato}: Se $F, G: [a, b] \to \mathbb{R}$ sono primitive di $f: [a, b]
+\to \mathbb{R}$ allora $\exists k \in \mathbb{R}. F(x) - G(x) = k \quad \forall
+x \in [a, b]$. \\ \\
+\emph{Dimostrazione}: \textbf{definisco $H = F - G$ e faccio la derivata nulla}.\\
+Siano $F, G$ primitive di $f$ su $[a, b]$. Definisco la funzione
+$H(x) = F(x) - G(x)$ e noto che e' costante, poiche' $H'(x) = F'(x) - G'(x) = 
+f(x) - f(x) = 0$ ha derivata uguale a zero ed e' percio' costante. Dunque $\exists
+k \in \mathbb{R}. F(x) - G(x) = k \quad \forall x \in [a, b]$.
+
+\qed
+
+\subsection{Def: Funzione integrale}
+
+Sia $f: ] a, b [ \to \mathbb{R}$, dato $c \in ] a, b [$ definiamo $I_c: ] a, b [
+\to \mathbb{R}$ come $I_c(x) = \int_c^x f(t) \, dt$ come \emph{funzione integrale
+di primo estremo c}.
+\begin{quote}
+  La funzione descrive come varia l'integrale al cambiare dell'ampiezza dell'
+  intervallo, sempre partendo dal punto $c$.
+\end{quote}
+\emph{Osservazione(1)}: $I_c(c) = \int_c^c f(t) \, dt = 0$ \\
+\emph{Osservazione(2)}: presi $c_1 \neq c_2 \in ] a, b [$ la scrittura $I_{c_1}(x)
+- I_{c_2}(x) = \int_{c_1}^x f - \int_{c_2}^x f = \int_{c_1}^x f + \int_x^{c_2} f =
+\int_{c_1}^{c_2} f$ per la proprieta' dell'additivita'. La differenza di due funizoni
+integrali e' dunque sempre costante.
+
+\subsection{Teorema: fondamentale del calcolo integrale (I)}
+
+\emph{Enunciato}: Presa $f: ]a, b[ \to \mathbb{R}$ continua, $c \in ]a,b[$,
+\emph{implica che} la funzione integrale $F(x) = I_c(x) = \int_c^x f(t) \, dt$ e' derivabile su $]a,b[$ e vale
+$F'(x) = f(x) \quad \forall x \in ]a,b[$, ovvero che \emph{$F$ e' una primitiva di $f$}. \\ \\
+\emph{Dimostrazione}: \textbf{applico le def. di derivata e funzione integrale, poi l'additivita', uso una successione per far tendere h a zero e applico il teorema della media itegrale} \\
+Vogliamo mostrare che:
+\begin{align*}
+  \frac{\delta }{\delta x} \int_c^x f(t) \, dt = \lim_{h \to 0} \frac{1}{h}(\int_c^{x+h}f - \int_c^{x}f) &=_? f(x) \\
+  \lim_{h \to 0} \frac{1}{h}(\int_c^{x+h}f + \int_x^{c}f) &=_? f(x) \\
+  \lim_{h \to 0} \frac{1}{h}\int_x^{x+h}f &=_? f(x) \\
+\end{align*}
+Risolvo tramite successioni. Costruisco dunque una successione $(h_n)_{n \in \mathbb{N}}$
+tale che sia una successione di numeri diversi da zero e con $\lim_{n \to +\infty} h_n = 0$.
+Riscrivo dunque la mia ipotesi come:
+\begin{align*}
+  \lim_{n \to +\infty} \frac{1}{h_n}\int_x^{x+h_n}f =_? f(x) \\
+\end{align*}
+Ora applico il teorema della media integrale su $[x, x+h_n]$ e ottengo:
+\begin{align*}
+  \exists \varepsilon_n \in [x, x+h_n] \quad f(\varepsilon_n) =  \frac{1}{x+h_n - x} &\int_x^{x+h_n}
+  f \quad \text{ovvero} \\
+  \exists \varepsilon_n \in [x, x+h_n] \quad f(\varepsilon_n) =\frac{1}{h_n} &\int_x^{x+h_n} f
+\end{align*}
+Dal risultato del teorema noto che $x \leq \varepsilon_n \leq x + h_n$. \\
+Poiche' $n \to \infty$, e per costruzione $h_n \to_{n \to \infty} 0$ si ha che
+$ x \leq \varepsilon_n \leq x$, ovvero $\varepsilon_n \to x$. Ma allora, poiche' $f$ e' continua vale che: \\
+$f(\varepsilon_n) = f(x)$  con $n \to +\infty$. \qed
+
+\subsection{Teorema: fondamentale del cacolo integrale (II) o di Toricelli}
+
+\emph{Enunciato}: Data $f: ]a_0, b_0[ \to \mathbb{R}$ continua, $[a, b] \subseteq ]a_0, b_0[$.
+Sia $F$ una primitiva di $f$ su $[a, b]$ allora vale che:
+\begin{align*}
+  \int_a^b f(x) \, dx &= F(b) - F(a) \\
+  &= [F(x)]_a^b \\
+  &= [F(x)]_{x=a}^{x=b}
+\end{align*}
+
+\noindent \emph{Dimostrazione}: \textbf{Definire un punto c in $[a,b]$, trovare
+$I_c$ che sappiamo essere primitiva per il teorema fondamentale del calcolo,
+sfruttare il teorema di caratterizzazione per dire che $I_c = F + k$ poi fare
+$I_c(b) - I_c(a)$ applicando le definizioni (da un lato abremo $F(b) - F(a)$ e
+dall'altro due integrali che possiamo unire per la proprieta' di additivita} \\
+Sia $c \in [a, b]$ e $I_c: [a, b] \to \mathbb{R}$. \\
+Per il teorema fondamentale del calcolo (I) $I_c$ e' una primitiva di $f$ su $]a_0, b_0[$.\\
+Per il teorema della caratterizzazione delle primitive $\exists k \in \mathbb{R}
+\quad \forall x \in ]a_0, b_0[ \quad I_c(x) = F(x) + k$. \\
+Ho dunque che $I_c(b) - I_c(a) = (F(b) + k) - (F(a) + k) = F(b) - F(a)$.
+Espando la definizone di $I_c(x) = \int_c^x$ nell'equazione soprastante e uso la
+\emph{proprieta' di additivita' degli integrali}:
+\begin{align*}
+  \int_c^b f - \int_c^a f =_? F(b) - F(a) \\
+  \int_c^b f + \int_a^c f =_? F(b) - F(a) \\
+  \int_a^b f = F(b) - F(a) \\
+\end{align*}
+\qed
+
+\subsection{Def: integrale generalizzato}
+
+Presa $f: [a, b[ \to \mathbb{R}$ continua, definiamo:
+\begin{align*}
+  \int_a^b f(x) \, dx = \lim_{c \to b^-} \int_a^c \, dx
+\end{align*}
+
+\noindent Analogamente presa $f: ]a, b] \to \mathbb{R}$ continua, definiamo:
+\begin{align*}
+  \int_a^b f(x) \, dx = \lim_{c \to a^+} \int_c^b \, dx
+\end{align*}
+
+\begin{quote}
+  NOTA: vale per $a, b \in \mathbb{R} \cup \{ \pm \infty \}$.
+\end{quote}
+
+\subsection{Def: Spazio $\mathbb{R}^n$}
+
+Definiamo lo spazio dei punti $\mathbb{R}^n = \{ \overline{x} = (x_1, \ldots, x_n)
+\mid x_1, \ldots. x_n \in \mathbb{R} \} = \mathbb{R} \times \ldots \times \mathbb{R}$.
+
+\subsection{Def: prodotto scalare}
+
+Presi due vettori $x = (x_1, x_2, \ldots, x_n), y = (y_1, y_2, \ldots, y_n) \in \mathbb{R}^n$
+si definisce il loro \emph{prodotto scalare} (o prodotto intero) come:
+
+\begin{align*}
+  \langle \overline{u}, \overline{v} \rangle = u_1 v_1 + u_2 v_2 + \ldots + u_n v_n = \sum_{k=1}^n u_k v_k
+\end{align*}
+
+\begin{quote}
+  NOTA: se il prodotto scalare e' nullo i due vettori sono perpendicolari.
+\end{quote}
+
+\subsubsection{Proprieta: prodotto scalare}
+
+\begin{enumerate}
+  \item \textbf{simmetria}: $\forall x, y \in \mathbb{R}^n \langle x, y \rangle = \langle y, x \rangle$.
+  \item \textbf{bilinearita'}: $\forall x, y, z \in \mathbb{R}^n, \forall \alpha, \beta \in \mathbb{R}$ vale:
+    \begin{align*}
+      \langle \alpha x + \beta y, z \rangle &= \alpha \langle x, z \rangle + \beta \langle y, z \rangle \text{ e } \\
+      \langle z, \alpha x + \beta y \rangle &= \alpha \langle z, x \rangle + \beta \langle z, y \rangle
+    \end{align*}
+  \item \textbf{somma quadratica}: $\forall x \in \mathbb{R}^n$ vale $\langle x, x, \rangle = 0 \iff x_1, \ldots, x_n = 0$ \\
+    conseguenza: $\forall x \in \mathbb{R}^n$ vale $\langle x, 0 \rangle = 0$.
+\end{enumerate}
+
+\subsection{Def: Norma euclidea}
+
+Dato un vettore $v = (v_1, v_2, \ldots, v_n) \in \mathbb{R}^n$ definiamo la sua 
+norma come:
+
+\begin{align*}
+  \| v \| = \sqrt{v_1^2 + v_2^2 + \ldots + v_n^2} = \sqrt{\sum_{k=1}^n v_k^2} = \sqrt{\langle v, v \rangle}
+\end{align*}
+
+\subsubsection{Proprieta': norma euclidea}
+
+Preso $\overline{x} \in \mathbb{R}$ valgono le seguenti proprieta':
+\begin{enumerate}
+  \item \textbf{segno}: $\| \overline{x} \| \geq 0$
+  \item \textbf{annullamento}: $\| \overline{x} \| = 0 \iff x = \overline{0}$
+  \item \textbf{omogeneita'}: $\| \lambda \overline{x} \| = \| \lambda \| \| 
+    \overline{x} \| \quad \forall \lambda \in \mathbb{R}$
+  \item \textbf{somma}: $\| \overline{x} + \overline{y} \| \leq \| \overline{x} \|
+    + \| \overline{y} \|$ e anche $\| \overline{x} + \overline{y} \| \geq \|
+    \overline{x} \| - \| \overline{y} \|$
+\end{enumerate}
+
+\subsection{Def: intorni sferici}
+
+In $\mathbb{R}^n$, preso $\overline{x} \in \mathbb{R}^n, r > 0$ si definice
+$B(\overline{x}, r) = \{ \overline{y} \in \mathbb{R}^n \mid \| \overline{y}
+- \overline{x} \| < r \}$.
+
+\subsection{Def: successioni in $\mathbb{R}^n$}
+
+Presa $(\overline{x}_k)_{k \in \mathbb{N}}$ tale che $\overline{x}_k =
+(\overline{x}_k^1, \ldots, \overline{x}_k^n)$ e preso un punto $\overline{c} \in \mathbb{R}^n$
+si definisce la successione come:
+\begin{align*}
+  \lim_{k \to +\infty} \overline{x}_k = c \iff \begin{cases}
+    \lim_{k \to +\infty} \overline{x}_k^1 = c_1 &\text{sse il limite converge} \\
+    \vdots \\
+    \lim_{k \to +\infty} \overline{x}_k^n = c_n &\text{sse il limite converge} \\
+  \end{cases}
+\end{align*}
+
+\begin{quote}
+  NOTA: la successione si dice \emph{convergente} sse tutti i suoi limiti convergono.
+\end{quote}
+
+\subsection{Def: insieme limitato}
+
+Preso un insieme $A \subseteq \mathbb{R}^n$, si dice che $A$ e' un \emph{insieme
+limitato} se $\exists r > 0$ tale che $\forall \overline{x} \in A. \, \|x\| < r$,
+o in altro modo, se si puo' costruire una palla centrata in un centro $\overline{c}$
+e di raggio $r$ tale che $A \subseteq B(\overline{c}, r)$.
+
+\begin{quote}
+  OSS: un insieme si dice \emph{illimitato} se non e' limitato.
+\end{quote}
+
+\subsection{Def: insieme aperto}
+
+Un insieme $A \subseteq \mathbb{R}^n$ si dice aperto se $\forall \overline{x}
+\in A \, \exists  \varepsilon > 0. \, B(\overline{x}, \varepsilon) \subseteq A$.
+
+In modo intuitivo, indipendentemente da quanto vicino al "bordo" dell'insieme scelto
+prendiamo il nostro punto $\overline{x}$, esistera' sempre una palla (intorno in $n = 1$)
+piccola a piacere (grandezza $\varepsilon$).
+
+\begin{quote}
+  NOTA: un insieme si dice \emph{chiuso} quando il suo complementare e' aperto, ovvero: \\
+  Preso $A \subseteq \mathbb{R}^n$, $A$ \emph{si dice chiuso} sse $\mathbb{R}^n \setminus A$ e' aperto.
+\end{quote}
+
+\subsection{Def: funzione di piu' variabili}
+
+Preso $A \subseteq \mathbb{R}^n, B \subseteq \mathbb{R}^q \quad n, q \in \mathbb{N}$,
+sia $f: A \to B$ dove $f: x \mapsto f(x) \in B$.
+
+\subsection{Def: insieme di livello}
+
+Presa $f: A \subseteq \mathbb{R}^n \to B \subseteq \mathbb{R}$ si definisce il suo insieme
+di livello per un dato valore $b \in B$ l'insieme dei punti dato da:
+\begin{align*}
+  I = \{ \overline{x} \in A | f(\overline{x}) = b \} = f^{-1}(b)
+\end{align*}
+
+\begin{quote}
+  Per visualizzare in $n=2$ si puo' pensare al disegno di un paraboloide $f(x,y) = x^2 + y^2$
+  intersecato con un piano del tipo $z = b = 1$. Infatti, l'insieme di tali punti sarebbe del
+  tipo$\{(x,y) \in \mathbb{R}^2 | x^2 + y^2 = 1\}$, come ci dice la definizione.
+\end{quote}
+
+\subsection{Def: funzione continua}
+
+\begin{quote}
+  Enunciato in $n = 2$ per semplicita' di notazione.
+\end{quote}
+
+\noindent Presa $f: A \to \mathbb{R}, A \subseteq \mathbb{R}^2$, \emph{si dice
+che $f$ e' continua} in $(\overline{x}, \overline{y}) \in A$ se presa 
+\begin{align*}
+  (x_k, y_k)_{k \in \mathbb{N}} \text{ tale che } \begin{cases}
+    (x_k, y_k) \in A \\
+    (x_k, y_k) \to (\overline{x}, \overline{y})
+  \end{cases}
+\end{align*}
+risulta $\lim_{k \to +\infty} f(x_k, y_k) = f(\overline{x}, \overline{y})$.
+
+Oltretutto, $f$ si dice \emph{continua su tutto} $A$ sse $f$ e' continua
+$\forall (\overline{x}, \overline{y}) \in A$.
+
+\subsection{Def: derivata parziale}
+
+Presa $f: A \subseteq \mathbb{R}^2 \to \mathbb{R}$, $A$ aperto, dato un punto
+$(\overline{x}, \overline{y}) \in A$, definiamo
+
+\begin{itemize}
+  \item \emph{la derivata rispetto a $x$} come $\frac{\delta f}{\delta x}(\overline{x},
+    \overline{y}) = \lim_{h \to 0} \frac{f(\overline{x}+h, \overline{y}) -
+    f(\overline{x}, \overline{y})}{h}$.
+
+  \item \emph{la derivata rispetto a $y$} come $\frac{\delta f}{\delta y}(\overline{x},
+    \overline{y}) = \lim_{h \to 0} \frac{f(\overline{x}, \overline{y} + h) -
+    f(\overline{x}, \overline{y})}{h}$.
+\end{itemize}
+
+\subsection{Def: Gradiente}
+
+Definiamo \emph{il gradiente} di una funzione $f: A \subseteq \mathbb{R}^n \to
+\mathbb{R}$ come:
+\begin{align*}
+  \nabla f(x_1, \ldots, x_n) = (\frac{\delta f}{\delta x_1}(x_1, \ldots, x_n), \ldots, \frac{\delta f}{\delta x_n}(x_1, \ldots, x_n))
+\end{align*}
+
+\subsection{Dim: Derivabilita' e continuita'}
+
+A differenza del caso unidimensionale, in piu' variabili la \emph{derivabilita}
+di una funzione, ossia il poter trovare il suo gradiente con le derivate parziali
+$\frac{\delta f}{\delta x}, \, \frac{\delta f}{\delta x}$ non implica continuita' di $f$.
+
+\textbf{Mostriamolo con un contoresempio}: supponiamo che la derivabilita' implichi
+la continuita' e cerchiamo una funzione $f$ che sia derivabile ma non continua.
+
+Prendiamo quindi $f: \mathbb{R}^2 \to \mathbb{R}$ definita come
+\begin{align*}
+  f(x, y) = \begin{cases}
+    \frac{xy}{x^2 + y^2} &\text{se } (x, y) \neq (0, 0) \\
+    0 &\text{se } (x, y) = (0, 0)
+  \end{cases}
+\end{align*}
+
+\noindent Verifichiamo la derivabilita' in $(0,0)$ calcolando sia la derivata parziale rispetto
+a $x$ che a $y$:
+\begin{align*}
+  \frac{\delta f}{\delta x}(0,0) = \lim_{h \to 0} \frac{f(0 + h, 0) - f(0, 0)}{h} =
+  \lim_{h \to 0} \frac{\frac{h\cdot0}{h^2} - 0}{h} = \lim_{h \to 0} \frac{0}{h} = 0 \\
+  \frac{\delta f}{\delta y}(0,0) = \lim_{h \to 0} \frac{f(0, 0 + h) - f(0, 0)}{h} =
+  \lim_{h \to 0} \frac{\frac{0\cdot}{h^2} - 0}{h} = \lim_{h \to 0} \frac{0}{h} = 0 \\
+\end{align*}
+Ne segue che la funzione e' derivabile in $(0, 0)$, quindi $\nabla f(0, 0) = (0, 0)$. \\
+Mostriamo ora l'assurdo \emph{provando che $f$ non e' continua in} $(0, 0)$.
+Possiamo fare cio' costruendo $(h_n, k_n)_{n \in \mathbb{N}}$ e $(u_n, v_n)_{n \in \mathbb{N}}$
+che tendono a $(0, 0)$ ma non assumono mai tale valore $\forall n \in \mathbb{N}$. \\
+Prendiamo:
+\begin{align*}
+  (h_n, k_n) = (\frac{1}{n}, \frac{1}{n}) \\
+  (u_n, v_n) = (\frac{1}{n}, 0)
+\end{align*}
+Facendo i limiti per $n \to \infty$ di $f(h_n, k_n)$ e $f(u_n, v_n)$ notiamo che
+essi non convergono allo stesso valore.
+\begin{align*}
+  \lim_{t \to \infty} f(h_n, k_n) \neq \lim_{t \to \infty} f(u_n, v_n) \text{ poiche': } \\
+  f(h_n, k_n) = \frac{\frac{1}{n} \cdot \frac{1}{n}}{\frac{1}{n^2} \cdot \frac{1}{n^2}} =
+  \frac{1}{2} =_{n \to \infty} \frac{1}{2} \\
+  f(u_n, v_n) = \frac{\frac{1}{n} \cdot 0}{\frac{1}{n^2} \cdot 0^2} =
+  0 =_{n \to \infty} 0 \\
+\end{align*}
+
+\noindent Abbiamo quindi provato l'assurdo e mostrato che $f$ e' derivabile ma
+non continua in $(0, 0)$.
+
+\subsection{Def: funzione differenziabile}
+
+Presa $f: A \subseteq \mathbb{R}^2 \to \mathbb{R}$, $A$ aperto, $(\overline{x},
+\overline{y}) \in A$, si dice che \emph{$f$ e' differenziabile} in $(\overline{x},
+\overline{y})$ se:
+
+\begin{itemize}
+  \item $\exists \frac{\delta f}{\delta x}(\overline{x}, \overline{y}), \exists \frac{\delta f}{\delta y}(\overline{x}, \overline{y})$
+  \item Vale la formula di Taylor $f(\overline{x}+h, \overline{y}+k) = f(\overline{x},\overline{y}) + \langle 
+    \nabla f(\overline{x}, \overline{y}), (h,k) \rangle +
+    o(\|(h, k)\|)$
+\end{itemize}
+
+\begin{quote}
+  OSS: ponendo $x = \overline{x} + h$, $y = \overline{y} + k$ e levando l'o-piccolo
+  si ottiene il polinomio di Taylor  di equazione: $T_1(x, y) = f(\overline{x},
+  \overline{y}) + \langle \nabla f(\overline{x}, \overline{y}), (x - \overline{x},
+  y - \overline{y}) \rangle$
+\end{quote}
+
+\subsubsection{Prop: differenziabilita' e continuita'}
+
+\emph{Enunciato}: Presa $f: A \subseteq \mathbb{R}^2 \to \mathbb{R}$, $A$ aperto
+ed $f$ differenziabile in $(\overline{x}, \overline{y}) \in A$, si ha che $f$ e'
+continua in $(\overline{x}, \overline{y})$. \\
+
+\begin{quote}
+  \textbf{OSS}: Nel caso $n \geq 2$ e' la differenziabilita' (e non la derivabilita')
+  a implicare la continuita'.
+\end{quote}
+
+\noindent \emph{Dimostrazione}: \textbf{NON RICHIESTA} \\
+\begin{quote}
+  Ricordiamo: $u: A \to \mathbb{R}$ si dice continua in $(\overline{x}, \overline{y}) \in A$ se: 
+  \begin{align*}
+    \forall \varepsilon > 0, \exists \delta_{\varepsilon} > 0 \quad | u(x, y)
+    - u(\overline{x}, \overline{y}) | &< \varepsilon \\
+    \forall (x,y) \in B((\overline{x}, \overline{y}), \delta_{\varepsilon}) \cap A
+  \end{align*}
+\end{quote}
+Devo mostrare, fissato un $\varepsilon > 0$, che vale:
+\begin{align*}
+  \exists \delta_{\varepsilon} > 0 \quad | f(\overline{x} + h, \overline{y} + k)
+  - f(\overline{x}, \overline{y}) | < \varepsilon \quad
+  \forall (h,k) \in B((0,0) \delta_{\varepsilon})
+\end{align*}
+Si noti che $(\overline{x} + h, \overline{y} + k) \in A$ e' sempre soddisfatto
+poiche' $A$ e' un insieme aperto. Poiche' $f$ e' differenziabile e vale la formula
+di Taylor, so che $f(\overline{x} + h, \overline{y} + k) - f(\overline{x}, \overline{y}) =
+\langle \nabla f(\overline{x}, \overline{y}), (h,k) \rangle + o(\|(h,k)\|)$. Sostituisco
+dunque nella disequazione e ottengo:
+\begin{align*}
+  \exists \delta_{\varepsilon} > 0 \quad |\langle \nabla f(\overline{x},
+  \overline{y}), (h,k) \rangle + o(\|(h,k)\|)| &< \varepsilon \\
+  |\langle \nabla f(\overline{x}, \overline{y}), (h,k) \rangle| + |o(\|(h,k)\|)|
+  &< \varepsilon \\
+  \forall &(h,k) \in B((0,0) \delta_{\varepsilon})
+\end{align*}
+Divido poi la somma in due disequazioni, che provo entrambe essere $< \frac{
+\varepsilon}{2}$:
+\begin{enumerate}
+  \item Devo provare:
+    \begin{align*}
+      |\langle \nabla f(\overline{x}, \overline{y}), (h,k) \rangle| < \frac{\varepsilon}{2}
+    \end{align*}
+    Per Cauchy-Shwartz ($|\langle x,y \rangle| \leq \|x\| \|y\|$) vale che:
+    \begin{align*}
+      \|\nabla f(\overline{x}, \overline{y})\| \|(h,k)\| < \frac{\varepsilon}{2}
+    \end{align*}
+    Che puo' essere verificata prendendo un opportuno $\delta_{\varepsilon} =
+    \frac{\varepsilon}{2\|\nabla f(\overline{x}, \overline{y}\|}$.
+
+  \item Devo provare:
+    \begin{align*}
+      |o(\|(h,k)\|)| &< \frac{\varepsilon}{2} \\
+      |o(\|(h,k)\|)| &= o(\|(h,k)\|) \|(h,k)\| < \frac{\varepsilon}{2}
+    \end{align*}
+    Poiche' $o(\|(h,k)\|)$ implica che $\|(h,k)\| \to 0$ si ha che la
+    disugualianza e' verificata.
+\end{enumerate}
+\qed
+
+\subsection{Extra: polinomio di Taylor e piano tangente}
+
+La formula di Taylor generalizzata al caso $n = 2$ usatra per la condizione di
+differenziabilita', dalla quale si ricavano le variabili $(x, y)$,ha un altro
+importante significato geometrico. Infatti, il piano di equazione
+\begin{align*}
+  z = T_1(x, y) = f(\overline{x}, \overline{y}) + \langle \nabla f(\overline{x},
+  \overline{y}), (x - \overline{x}, y - \overline{y}) \rangle + o(\|(x - \overline{x}, y - \overline{y})\|)
+\end{align*}
+rappresenta \emph{il piano tangente} al grafico della funzione $f$ nel punto
+$(\overline{x}, \overline{y}, f(\overline{x}, \overline{y}))$.
+
+\subsection{Def: funzioni di classe $C^1$}
+
+Preso $f: A \to \mathbb{R}, A \subseteq \mathbb{R}^n$ aperto si dice di \emph{classe $C^1$}
+se $f$ e' continua in $A$, se $\frac{\delta f}{\delta x_j}$ esiste ed e' continua $\forall j \in \{1,\ldots,n\}$.
+
+\begin{quote}
+  \textbf{OSS}: tutte le funzioni "elementari" sono di classe $C^1$.
+\end{quote}
+
+\subsection{Teorema: differenziabilita' delle fuzioni di classe $C^1$}
+
+\emph{Enunciato}: Se ho $f: A \to \mathbb{R}, A \subseteq \mathbb{R}^n$ aperto,
+$f$ di classe $C^1$, allora $f$ e' differenziabile $\forall \overline{x} \in A$. \\
+
+\begin{quote}
+  \emph{Premessa (Lagrange in $n > 1$ o del valor intermedio)}: \textbf{(solo per x)
+  costruire $u(x) = f(x, y)$ con y fissato. espandere la tesi arrivando a dire
+  che $f(b,y) - f(a,y) = \delta_x f(\overline{x}, y)(b-a)$.
+  Calcolare con il limite la derivata di $u$ e usare il teorema di lagrange per trovare $\overline{x}$ e 
+  giungere esattamente a cio' che si voleva provare.} \\
+  Devo mostrare il teorema di Lagrange in $n=1$, e lo faro' per la
+  variabile $x$ in quantoo e' analogo per la $y$. Voglio dunque che $\forall a, b \in A$,
+  preso $y$ fissato $\in \mathbb{R}$, $\exists c \in ]a, b[ (o ]b, a[)$
+  tale che $f(b, y) - f(a, y) = \delta_x f(c, y)(b-a)$.
+  Costruisco la funzione $u: \mathbb{R} \to \mathbb{R}, u(x) \mapsto f(x, y)$, 
+  e la derivo ottenendo:
+  \begin{align*}
+    u'(x) &= \lim_{h \to 0} \frac{u(x + h) - u(x)}{h} = \frac{f(x+h, y) - f(x, y)}{h} \\
+          &= \frac{\delta f}{\delta x} (x, y)
+  \end{align*}
+  Per Lagrange su $u$ in $[a, b] (o [b, a])$ ho che $\exists c \in ]a,b[ (o ]b,a[)$
+  tale che $u(b) - u(a) = u'(c)(b-a)$, ovvero, rimpiazzando $u$ con la sua definizione e derivata:
+  \begin{align*}
+    \frac{\delta f}{\delta x}(c, y) = \frac{f(b, y) - f(a, y)}{b-a}
+  \end{align*}
+  Questo e' esattamente cio' che si voleva provare.
+  \qed
+\end{quote}
+
+\noindent \emph{Dimostrazione}: \textbf{dobbiamo mostrare l'esistenza delle derivate
+parziali che e' ovvia per ipotesi, e la validita' di Taylor. Per provare Taylor lo
+esplicitiamo, sottraiamo e sommiamo $f(\overline{x}+h, y)$ notando che si hanno dunque
+due risultati del lemma di Lagrange. Raccogliamo $h$ e $k$ e proviamo una delle due
+ugualgianze con l'o-piccolo rifacendoci alla definizione di o-piccolo e limite}. \\
+Vogliamo mostrare che $f$ e' differenziabile in $\forall x \in A$, fissiamo dunque
+un generico $(\overline{x}, \overline{x}) \in A$ e mostriamolo per esso. Affinche'
+una funzione sia differenziabile si ha bisogno che:
+\begin{enumerate}
+  \item $\exists \frac{\delta f}{\delta x}, \quad \exists \frac{\delta f}{\delta y}$ ovvio
+  per l'ipotesi che $f$ e' $C^1$.
+  \item Vale la formula di Taylor per $(\overline{x}, \overline{y})$.
+\end{enumerate}
+Mostriamo dunque che vale la formula di Taylor ($(h,k) \to 0$):
+\begin{align*}
+  f(\overline{x} + h, \overline{y} + k) = f(\overline{x}, \overline{y}) +
+  \langle \nabla f(\overline{x}, \overline{y}), (h,k) \rangle + o(\|(h,k)\|) \\
+  f(\overline{x} + h, \overline{y} + k) - f(\overline{x}, \overline{y}) = 
+  \langle \nabla f(\overline{x}, \overline{y}), (h,k) \rangle + o(\|(h,k)\|) \\
+  f(\overline{x} + h, \overline{y} + k) - f(\overline{x}+h, y) + f(\overline{x}+h, y) - f(\overline{x}, \overline{y}) = 
+  \langle \nabla f(\overline{x}, \overline{y}), (h,k) \rangle + o(\|(h,k)\|) \\
+  [(1) - (2)] + [(3) - (4)] = \langle \nabla f(\overline{x}, \overline{y}), (h,k) \rangle + o(\|(h,k)\|)
+\end{align*}
+Noto che $(1) - (2)$ e $(3) - (4)$ sono i risultati di una eventuale applicazione
+del lemma di Lagrange dimostrato in precedenza. Allora applico tale lemma due volte, ottenendo:
+\begin{align*}
+  \exists \Theta_1, \Theta_2 \in ]0,1[ \\
+  \frac{\delta f}{\delta x}(\overline{x} + \Theta h, \overline{y} + k)h +
+  \frac{\delta f}{\delta y}(\overline{x}, \overline{y} + \Theta_2k)k =
+  \frac{\delta f}{\delta x}(\overline{x}, \overline{y})h +
+  \frac{\delta f}{\delta y}(\overline{x}, \overline{y})k +  \rangle + o(\|(h,k)\|)
+\end{align*}
+Ora raccolgo:
+\begin{align*}
+  h[\frac{\delta f}{\delta x}(\overline{x} + \Theta h, \overline{y} + k) -
+  \frac{\delta f}{\delta x}(\overline{x}, \overline{y})] +
+  k[\frac{\delta f}{\delta y}(\overline{x}, \overline{y} + \Theta_2k) -
+  \frac{\delta f}{\delta y}(\overline{x}, \overline{y})] = o(\|(h,k)\|)
+\end{align*}
+Devo dunque mostrare che $h[\ldots] = o(\|(h,k)\|) \wedge k[\ldots] = o(\|(h,k)\|)$.
+Svolgo la seconda ma sono analoghe. Espandendo la definizione di o-piccolo devo provare:
+\begin{align*}
+  \lim_{\|(h,k)\| \to 0} |\frac{
+    \frac{\delta f}{\delta y}(\overline{x}, \overline{y} + \Theta_2k) -
+    \frac{\delta f}{\delta y}(\overline{x}, \overline{y})
+  }{\|(h,k)\|}| = 0
+\end{align*}
+Espando la definizione di limite:
+\begin{align*}
+  \forall \varepsilon > 0. \exists \delta > 0. \forall (h,k) \neq 0 \wedge \|(h,k)\| < \delta \\
+  |\frac{
+    \frac{\delta f}{\delta y}(\overline{x}, \overline{y} + \Theta_2k) -
+    \frac{\delta f}{\delta y}(\overline{x}, \overline{y})
+  }{\|(h,k)\|}| < \varepsilon
+\end{align*}
+Poiche' $\frac{|h|}{\|(h,k)\|} \leq 1$ posso affermare che:
+\begin{align*}
+  |\frac{\delta f}{\delta y}(\overline{x}, \overline{y} + \Theta_2k) - \frac{\delta f}{\delta y}(\overline{x}, \overline{y})|
+  \frac{|h|}{\|(h,k)\|} \leq |\frac{\delta f}{\delta y}(\overline{x}, \overline{y} + \Theta_2k) - \frac{\delta f}{\delta y}(\overline{x}, \overline{y})|
+\end{align*}
+Allora posso ridurmi a dimostrare:
+\begin{align*}
+  \forall \varepsilon > 0. \exists \delta > 0. \forall (h,k) \neq 0 \wedge \|(h,k)\| < \delta \\
+  |\frac{\delta f}{\delta y}(\overline{x}, \overline{y} + \Theta_2k) - \frac{\delta f}{\delta y}(\overline{x}, \overline{y})| < \varepsilon
+\end{align*}
+Ovvero:
+\begin{align*}
+  \lim_{\|(h,k)\| \to 0} \frac{\delta f}{\delta y}(\overline{x}, \overline{y} + \Theta_2k) = \frac{\delta f}{\delta y}(\overline{x}, \overline{y})
+\end{align*}
+Che e' ovvio per la continuita' di $f$. \qed
+
+\subsection{Def: Derivata direzionale}
+
+Presa $f: \mathbb{R}^n \to \mathbb{R}$, $(\overline{x}, \overline{y}) \in \mathbb{R}^2$
+(o $A$ aperto), $v = (v_1, v_2)$ di norma unitaria ($\|(v_1, v_2\|) = 1$), definiamo
+\emph{la derivata direzionale di $f$ in $(\overline{x}, \overline{y})$ nella direzione
+$v$} come segue:
+\begin{align*}
+  \frac{\delta f}{\delta v}(\overline{x}, \overline{y}) = \lim_{t \to 0}
+    \frac{f(\overline{x} + tv_1, \overline{y} + tv_2) - f(\overline{x}, \overline{y})}{t}
+\end{align*}
+(quando esiste il limite finito)
+
+\begin{quote}
+  OSS: i casi particolari dove $v = e_1$ e $v = e_2$ sono quelli delle derviate
+  parziali $\frac{\delta f}{\delta x}$ e $\frac{\delta f}{\delta y}$.
+\end{quote}
+
+\subsection{Teorema: del gradiente}
+
+\emph{Enunciato}: Pesa $A \subseteq \mathbb{R}^2$ aperto, $f: A \to \mathbb{R}$
+differenziabile in un punto $(\overline{x}, \overline{y}) \in A$ allora $\forall
+v \in \mathbb{R}^2, \|v\| = 1$ vale:
+
+\begin{align*}
+  \frac{\delta f}{\delta v}(\overline{x}, \overline{y}) &= \langle \nabla
+    f(\overline{x}, \overline{y}), (v_1, v_2) \rangle \\
+  &= \frac{\delta f}{\delta x}(\overline{x}, \overline{y})v_1 +
+    \frac{\delta f}{\delta y}(\overline{x}, \overline{y})v_2
+\end{align*}
+
+\noindent \emph{Dimostrazione}: \textbf{partiamo dalla formula di tyalor con
+$h = tv$ dove $v$ versore. Semplifichiamo fino ad avere solo il prod. scalare con
+il gradiente in un membro. Si passa ai limiti e si elimina l'o-piccolo per def} \\
+Dobbiamo mostrare che
+\begin{align*}
+  \lim_{t \to 0} \frac{f(\overline{x} + tv_1, \overline{y} + tv_2) - f(\overline{x}, \overline{y})}{t} =_?
+  \langle \nabla f(\overline{x}, \overline{y}), (v_1, v_2) \rangle
+\end{align*}
+Poiche' $f$ e' differenziabile, per Taylor ho che prso un $(h_1, h_2) \in \mathbb{R}^2$ tale
+che $(\overline{x} + h_1, \overline{y} + h_2) \in A$:
+\begin{align*}
+  f(\overline{x} + h_1, \overline{y} + h_2) = f(\overline{x}, \overline{y}) + \langle
+  \nabla f(\overline{x}, \overline{y}), (h_1, h_2) \rangle + o(\|(h_1, h_2)\|) \\
+  \text{per } \|(h_1, h_2)\| \to 0
+\end{align*}
+Pongo $h = tv$ dove $v$ e' un versore (di norma unitaria) e ottengo:
+\begin{align*}
+  f(\overline{x} + tv_1, \overline{y} + tv_2) = f(\overline{x}, \overline{y}) + \langle
+  \nabla f(\overline{x}, \overline{y}), t(v_1, v_2) \rangle + o(\|t(v_1, v_2)\|) \\
+  \text{per } \|t(v_1, v_2)\| \to 0
+\end{align*}
+Per la proprieta' di omogeneita' della norma e poiche' $v$ e' un versore ($\|v\| = 1$) ho che
+\begin{align*}
+  \|t(v_1, v_2)\| = \|t\| \|(v_1, v_2)\| = \|t\|
+\end{align*}
+Per le proprieta' di omogeneita' del prodotto scalare ho che:
+\begin{align*}
+  \langle \nabla f(\overline{x}, \overline{y}), t(v_1, v_2) \rangle = t \langle \nabla f(\overline{x}, \overline{y}), (v_1, v_2) \rangle
+\end{align*}
+Riscrivo dunque l'uguaglianza come segue:
+\begin{align*}
+  f(\overline{x} + tv_1, \overline{y} + tv_2) = f(\overline{x}, \overline{y}) + t \langle
+  \nabla f(\overline{x}, \overline{y}), (v_1, v_2) \rangle + o(\|t\|) \\
+  \text{per } \|t\| \to 0
+\end{align*}
+Spostiamo al primo membro $f(\overline{x}, \overline{y})$ e dividiamo entrambi per $t$:
+\begin{align*}
+  \frac{f(\overline{x} + tv_1, \overline{y} + tv_2) - f(\overline{x}, \overline{y})}{t} = \langle
+  \nabla f(\overline{x}, \overline{y}), (v_1, v_2) \rangle + \frac{o(\|t\|)}{t} \\
+  \text{per } \|t\| \to 0
+\end{align*}
+Passiamo poi al limite:
+\begin{align*}
+  \lim_{t \to 0}\frac{f(\overline{x} + tv_1, \overline{y} + tv_2) - f(\overline{x}, \overline{y})}{t} =
+  \lim_{t \to 0} \langle\nabla f(\overline{x}, \overline{y}), (v_1, v_2) \rangle + \frac{o(\|t\|)}{t}
+\end{align*}
+e notiamo che $\lim_{t \to 0} \frac{o(\|t\|)}{t} = 0$ per definizione di o-piccolo. \\
+Ho dunque che:
+\begin{align*}
+  \lim_{t \to 0}\frac{f(\overline{x} + tv_1, \overline{y} + tv_2) - f(\overline{x}, \overline{y})}{t} =
+  \langle\nabla f(\overline{x}, \overline{y}), (v_1, v_2) \rangle \\
+  \forall (v_1, v_2) \in \mathbb{R}^2, \|(v_1, v_2)\|| = 1
+\end{align*}
+Abbiamo mostrato che la derivata nel punto $(\overline{x}, \overline{y})$ di
+direzione $(v_1, v_2)$ e' uguale al prodotto scalare tra $\nabla f(\overline{x},
+\overline{y})$ e $(v_1, v_2)$.
+\qed
+
+\subsection{Def: curva o cammino}
+
+Una \emph{curva o cammino} in $\mathbb{R}^n$ e' una funzione del tipo $f: ]a,b[ \to
+\mathbb{R}^n$ (in fisica: la variabile si chiama $t \in ]a,b[$).
+
+\subsection{Def: velocita' o vettore tangente di un cammino}
+
+Dato $r: I \to \mathbb{R}^n, r(t) \mapsto (r_1(t), \ldots, r_n(t))$ se le funzioni
+$r_1, \ldots, r_n$ sono derivabili in qualche $t$ allora definiamo \emph{il vettore
+velocita'} di $r$ come:
+\begin{align*}
+  r'(t) = (r_1'(t), \ldots, r_n'(t))
+\end{align*}
+
+\subsection{Def: derviata lungo un cammino}
+
+\emph{Enunciato}: Siano $r: \mathbb{R} \to \mathbb{R}^n$, $f: \mathbb{R}^n \to \mathbb{R}$.
+Sia $r$ \emph{derivabile in} $t \in \mathbb{R}$ e $f$ \emph{differenziabile} in $r(t)$.
+Allora:
+\begin{align*}
+  (f \circ r)'(t) &= \langle \nabla f(r(t)), r'(t) \rangle \\
+                  &= \sum_{j=1}^n \frac{\delta f}{\delta x_j} (r(t))r_j'(t)
+\end{align*}
+
+\emph{Dimostrazione}: \textbf{riscriviamo df/dt con il limite incrementale, poi
+applico il teorema della differenziabilita' al numeratore del limite. Ottengo
+una somma di tre addendi, che analizzo separatamente nel limite} \\
+Proviamo il teorema in $n = 2$ per semplicita' di notazione. \\
+Per ipotesi abbiamo $r: \mathbb{R} \to \mathbb{R}^n$, $f: \mathbb{R}^n \to \mathbb{R}$,
+dove $r$ e' derivabile in $t$ e $f$ e' differenziabile in $r(t)$. Dobbiamo
+trovare $\frac{\delta f}{\delta t} (r(t))$ e possiamo farlo tramite il limite incrementale:
+\begin{align*}
+  \lim_{h \to 0} \frac{f(r(t + h)) - f(r(t))}{h} =_? \langle \nabla f(r(t)), r'(t) \rangle
+\end{align*}
+Lavoriamo sul numertore del limite notando che si puo' usare il teorema della differenziabilita':
+\begin{align*}
+  f(r(t + h)) - f(r(t)) = \langle \nabla f(r(t)), [r(t+h) - r(t)] \rangle
+  + o(\|r(t+h) - r(t)\|)
+\end{align*}
+Usiamo poi la formula di Taylor, poiche' $r$ e' derivabile. Vale percio': $r(t + h) - r(t) = r'(t)h + o(h)$.
+Possiamo dunque riscrivere come:
+\begin{align*}
+  f(r(t + h)) - f(r(t)) &= \langle \nabla f(r(t)), [r'(t)h + o(h)] \rangle
+  + o(\|r'(t)h + o(h)\|) \\
+                        &= \langle \nabla f(r(t)), r'(t)h \rangle + \langle
+                        \nabla f(r(t)), o(h) \rangle + o(\|r'(t)h + o(h)\|) \\
+                        &= (1) + (2) + (3)
+\end{align*}
+
+\noindent Ora analizzo i limiti $\lim_{h \to 0} \frac{(n)}{h}$ (il limite originale, separando il numeratore):
+\begin{enumerate}
+  \item \begin{align*}
+      \lim_{h \to 0} \frac{h \langle \nabla f(r(t)), r'(t)\rangle}{h} = \langle \nabla f(r(t)), r'(t) \rangle
+  \end{align*}
+  \item \begin{align*}
+      \lim_{h \to 0} \frac{\langle \nabla f(r(t)), o(h) \rangle}{h} = (\ldots) \cdot \frac{o(h)}{h} = 0
+  \end{align*}
+  \item \begin{align*}
+      \lim_{h \to 0} \frac{o(\|r'(t)h + o(h)\|)}{t} = \frac{o(h)}{h} = 0
+  \end{align*}
+\end{enumerate}
+Abbiamo mostrato che il limite restituisce esattamente quello che ci aspettavamo,
+ovvero $\langle \nabla f(r(t)), r'(t) \rangle$.
+\qed
+
+\subsection{Def: matrice Jacobiana}
+
+Sia $f: \mathbb{R}^n \to \mathbb{R}^q$ (o $A \subseteq \mathbb{R}^n$ aperto),
+$f: \overline{x} = (x_1, \ldots, x_n) \mapsto (f_1(\overline{x}), \ldots, f_q(\overline{x}))$.
+Suppongo che ciascuna delle funzioni (scalari) $f_1, \ldots, f_q$ sia differenziabile in $\mathbb{R}^n$.
+Definisco allora la \emph{matrice Jacobiana} come:
+\begin{align*}
+  J_f(\overline{x}) =
+  \begin{bmatrix}
+    \frac{\delta f_1}{\delta x_1}(\overline{x}) &
+    \frac{\delta f_1}{\delta x_2}(\overline{x}) & \ldots &
+    \frac{\delta f_1}{\delta x_n}(\overline{x}) \\
+    \frac{\delta f_2}{\delta x_1}(\overline{x}) &
+    \frac{\delta f_2}{\delta x_2}(\overline{x}) & \ldots &
+    \frac{\delta f_2}{\delta x_n}(\overline{x}) \\
+    \vdots & \vdots & \ddots & \vdots \\
+    \frac{\delta f_q}{\delta x_1}(\overline{x}) &
+    \frac{\delta f_q}{\delta x_2}(\overline{x}) & \ldots &
+    \frac{\delta f_q}{\delta x_n}(\overline{x})
+  \end{bmatrix} \in M_{q \times n} (\mathbb{R})
+\end{align*}
+
+\begin{quote}
+  OSS(1) le righe corrispondo ai gradienti di $f_1, \ldots, f_n$.
+  OSS(2): le colonne corrispondono alle derivate del vettore $f(x)$ rispetto alle variabili.
+\end{quote}
+
+\subsection{Teorema: di Fermat}
+
+\emph{Enunciato}: Presa $f: A \to \mathbb{R}$ dove $A \subseteq \mathbb{R}^2$
+aperto, $(\overline{x}, \overline{y}) \in A$ punto di massimo o minimo, $f$
+differenziabile in $(\overline{x}, \overline{y})$, si ha che $\nabla
+f(\overline{x}, \overline{y}) = \overline{0}$. \\
+
+\noindent \emph{Dimostrazione}: \textbf{definisco $h(x) = f(x, \overline{y})$,
+con $(\overline{x},\overline{y})$ minimio, derivo con il limite e vedo che e' uguale
+alla derivata di $f$ tenendo $\overline{y}$ fisso poi sfrutto l'ipotesi che il punto
+e' di minimo e ho che la derivata di $f$ in $(\overline{x}, \overline{y})$ = 0 qed} \\
+Sia $(\overline{x}, \overline{y}) \in A$ di minimo locale.
+Consideriamo $h(x) = f(x,\overline{y})$ definita per $x$ vicino a $\overline{x}$.
+Noto che $h$ ha un punto di minimo in $\overline{x}$ poiche' chiama a sua volta
+$f$ che ha questa proprieta'. Se ora calcoliamo la derivata:
+\begin{align*}
+  h'(x) = lim_{h \to 0} \frac{f(x+h, \overline{y}) - f(x, \overline{y})}{h} =
+  \frac{\delta f}{\delta x}(x, \overline{y}) \forall x \in \mathbb{R}
+\end{align*}
+e poiche' $\overline{x}$ e' di minimo per $h$ vale $h'(\overline{x}) = 0$ e per 
+quanto provato prima, vale anche $\frac{\delta f}{\delta x}(\overline{x}, \overline{y}) = 0$ ($H_1$). \\
+Posso svolgere una dimostrazione analoga per $y$ tenendo fissa la coordinata $\overline{x}$,
+dalla quale otterrei $\frac{\delta f}{\delta y}(\overline{x}, \overline{y}) = 0$ ($H_2$).
+Combinando $H_1$ e $H_2$ ottengo dunque $(f_x(\overline{x}, \overline{y}), f_y(\overline{x}, \overline{y})) = (0,0)$.
+\qed
+
+\subsection{Def: punto di sella}
+
+Presa $f: \mathbb{R}^n \to \mathbb{R}$, $(\overline{x}, \overline{y}) \in \mathbb{R}^n$,
+$f$ differenziabile in $(\overline{x}, \overline{y})$ e valga $\nabla f(\overline{x}, \overline{y}) = \overline{0}$.
+Si dice che $(\overline{x}, \overline{y})$ e' punto di \emph{sella} se $\forall \delta
+> 0. \exists P_1 = (\overline{x}^+, \overline{y}^+), P_2 = (\overline{x}^-, \overline{y}^-) \in
+B((\overline{x}, \overline{y}), \delta)$ tali che $f(\overline{x}^-, \overline{y}^-) <
+f(\overline{x}, \overline{y}) < f(\overline{x}^+, \overline{y}^+)$.
+
+\begin{quote}
+  NOTA: intuitivamente e' un punto in cui non si puo' dire se sia di massimo o
+  di minimo poiche' cresce rispetto ad un asse e decresce rispetto ad un altro. \\
+  Per questo motivo possiamo individuare due punti in una palla vicina a
+  $(\overline{x}, \overline{y})$ con questa proprieta'.
+\end{quote}
+
+% NOTE: ho ignorato la definizione di matrice radiale
+
+\subsection{Def: derivata seconda}
+
+Presa $f: \mathbb{R}^2 \to \mathbb{R}$ derivabile ovunque, e $\frac{\delta f}{\delta x},
+\frac{\delta f}{\delta y}: \mathbb{R}^2 \to \mathbb{R}$ si considerano le loro
+derivate seconde:
+\begin{align*}
+  \frac{\delta^2 f}{\delta y, \delta x} = \frac{\delta^2 f}{\delta x, \delta y}, \quad
+  \frac{\delta^2 f}{\delta x^2}, \quad \frac{\delta^2 f}{\delta y^2}
+\end{align*}
+
+\begin{quote}
+  OSS: Il teorema di Schwarz ci garantira' che le derivate parziali rispetto
+  a $x$ e a $y$ sono identiche indipendentemente dall'ordine in cui esse vengono derivate.
+\end{quote}
+
+\subsection{Def: matrice Hessiana}
+
+Sia $A \subseteq \mathbb{R}^n$ aperto, $f: A \to \mathbb{R}$, $f: (x_1, \ldots, x_n)
+\mapsto f(x_1, \ldots, x_n) \in \mathbb{R}$. Preso $\overline{x} \in A$ tale che
+esistano tutte le derivate parziali per $k,j \in \{1, \ldots, n\}$ della forma
+$\frac{\delta^2 f}{\delta x_k \delta x_j}(\overline{x})$. Introduciamo allora
+\emph{la matrice Hessiana di $f$ nel punto $\overline{x}$} $H_f(\overline{x}) \in
+M_{n \times n} (\mathbb{R})$ tale che:
+\begin{align*}
+  (H_f(\overline{x}))_{j,k} = \frac{\delta^2 f}{\delta x_j \delta x_k}
+\end{align*}
+
+\subsection{Def: funzione di classe $C^2$}
+
+Si dice che $f: A \to \mathbb{R}$ e' \emph{di classe $C^2$} su $A$ se tutte le
+derivate parziali di ordine $\leq 2$ sono continue $\forall j, k \in \{1,\ldots,n\}$,
+ovvero se:
+\begin{align*}
+  \frac{\delta f}{\delta x_j} \text{ e } \frac{\delta f}{\delta x_j \delta x_k}
+  \text{ sono continue } \forall j, k \in \{1,\ldots,n\}
+\end{align*}
+
+\subsection{Teorema: di Schwarz}
+
+\emph{Enunciato}: Preso $A \subseteq \mathbb{R}^n$ aperto, $f: A \to \mathbb{R}$ di classe $C^2$
+possiamo dire che $\forall \overline{x} \in A, \forall j, k \in \{1, \ldots, n\}$ vale
+\begin{align*}
+  \frac{\delta^2 f}{\delta x_j \delta x_k} = \frac{\delta^2 f}{\delta x_k \delta x_j}
+\end{align*} \\
+
+\noindent \emph{Dimostrazione}: \textbf{Costruisco le funzioni:$
+g(x, y) = \frac{f(x, y) - f(x, \overline{y})}{y-\overline{y}}, \quad
+h(x, y) = \frac{f(x, y) - f(\overline{x}, y)}{x-\overline{x}}$ e l'ugualianza:
+$\frac{g(x,y) - g(\overline{x}, y)}{x-\overline{x}} = \frac{h(x,y) - h(x, \overline{y})}{y-\overline{y}}$.
+Applico due volte su ogni funzione il teorema di Lagrange in intervalli di $]\overline{x}, x[$ e $]\overline{y}, y[$
+ottenendo quattro ugualianze che posso sostituire nella uguaglianza originale. A questo
+punto vedo che quando $(x,y) \to (\overline{x},\overline{y})$ ho la tesi.
+} \\
+Fissato un generico $(\overline{x}, \overline{y}) \in A$ si ricorda la tesi da mostrare:
+\begin{align*}
+  \frac{\delta^2 f}{\delta y \delta x}(\overline{x}, \overline{y}) =
+  \frac{\delta^2 f}{\delta x \delta y}(\overline{x}, \overline{y})
+\end{align*}
+Prendiamo un $\varepsilon > 0$ e un $(x, y) \in B(\overline{x}, \varepsilon)$
+tale che $x \neq \overline{x} \wedge y \neq \overline{y}$. Possiamo allora definire le due funzioni:
+\begin{align*}
+  g(x, y) = \frac{f(x, y) - f(x, \overline{y})}{y-\overline{y}}, \quad
+  h(x, y) = \frac{f(x, y) - f(\overline{x}, y)}{x-\overline{x}}
+\end{align*}
+Si nota che vale l'ugualianza ($H_1$):
+\begin{align*}
+  \frac{g(x,y) - g(\overline{x}, y)}{x-\overline{x}} =
+  \frac{h(x,y) - h(x, \overline{y})}{y-\overline{y}}
+\end{align*}
+Applichiamo poi il teorema di Lagrange su $g$ in $]\overline{x}, x[$ e abbiamo:
+\begin{align*}
+  \exists \varepsilon_1 \in ]\overline{x}, x[. \quad 
+  \frac{g(x,y) - g(\overline{x}, y)}{x-\overline{x}} &= \frac{\delta g}{\delta x}(\varepsilon_1, y) \\
+  &= \frac{\delta_{x}f(\varepsilon_1, y) - \delta_{x}f(\varepsilon_1, \overline{y})}{y - \overline{y}}
+\end{align*}
+Applichiamo poi il teorema di Lagrange su $h$ in $]\overline{y}, y[$ e abbiamo:
+\begin{align*}
+  \exists \varepsilon_2 \in ]\overline{y}, y[. \quad 
+  \frac{h(x,y) - h(x, \overline{y})}{y-\overline{y}} &= \frac{\delta h}{\delta y}(x, \varepsilon_2) \\
+  &= \frac{\delta_{y}f(x, \varepsilon_2) - \delta_{y}f(\overline{x}, \varepsilon_2)}{x - \overline{x}}
+\end{align*}
+Di nuovo per il teorema di Lagrange su $\frac{\delta g}{\delta x}$ in $]\overline{y}, y[$:
+\begin{align*}
+  \exists \varepsilon_3 \in ]\overline{y}, y[. \quad 
+  \frac{\delta_{x}f(\varepsilon_1, y) - \delta_{x}f(\varepsilon_1, \overline{y})}{y - \overline{y}} =
+  \frac{\delta^2 f}{\delta y \delta x}(\varepsilon_1, \varepsilon_3)
+\end{align*}
+Di nuovo per il teorema di Lagrange su $\frac{\delta h}{\delta y}$ in $]\overline{x}, x[$:
+\begin{align*}
+  \exists \varepsilon_4 \in ]\overline{x}, x[. \quad 
+  \frac{\delta_{y}f(x, \varepsilon_2) - \delta_{y}f(\overline{x}, \varepsilon_2)}{x - \overline{x}} =
+  \frac{\delta^2 f}{\delta x \delta y}(\varepsilon_4, \varepsilon_2)
+\end{align*}
+Sostituendo ora le ugualianze nell'ipotesi iniziale ($H_1$) si ha che:
+\begin{align*}
+  \frac{\delta^2 f}{\delta y \delta x}(\varepsilon_1, \varepsilon_3) =
+  \frac{\delta^2 f}{\delta x \delta y}(\varepsilon_4, \varepsilon_2)
+\end{align*}
+Facendo tendere $(x, y) \to (\overline{x}, \overline{y})$ si ha che
+$(\varepsilon_1, \varepsilon_3) \to (\overline{x}, \overline{y})$ e $(\varepsilon_4, \varepsilon_2)
+\to (\overline{x}, \overline{y})$ a causa degli intervalli a cui appartengono, e si ha
+dunque:
+\begin{align*}
+  \frac{\delta^2 f}{\delta y \delta x}(\overline{x}, \overline{y}) =
+  \frac{\delta^2 f}{\delta x \delta y}(\overline{x}, \overline{y})
+\end{align*}
+\qed
+
+\subsection{Def: forma quadratica}
+
+Sia $A \in M_{n \times n} (\mathbb{R})$ simmetrica ($A = A^T$), allora la forma
+quadratica associata ad $A$ e' data da:
+\begin{align*}
+  q_A: \mathbb{R}^n &\to \mathbb{R} \\
+  q_A: (h) &\mapsto \langle Ah, h \rangle \forall h \in \mathbb{R}^n \\
+\end{align*}
+
+\noindent Presa $A \in M_{n \times n} (\mathbb{R})$ simmetrica, $q_A$ forma
+quadratica associata ad $A$, si puo' dire che:
+
+\subsubsection{Def: forma quadratica positiva}
+
+$A$ viene detta \emph{definita positiva} se vale:
+\begin{align*}
+  \langle Ah, h \rangle > 0 \quad \forall h \in \mathbb{R}^n\setminus\{\overline{0}\}
+\end{align*}
+
+\subsubsection{Def: forma quadratica negativa}
+
+$A$ viene detta \emph{definita negativa} se vale:
+\begin{align*}
+  \langle Ah, h \rangle < 0 \quad \forall h \in \mathbb{R}^n\setminus\{\overline{0}\}
+\end{align*}
+
+\subsubsection{Def: forma quadratica indefinita}
+
+$A$ viene detta \emph{definita indefinita} se vale: $\exists h^+, h^- \in \mathbb{R}^n$
+\begin{align*}
+  \langle Ah^-, h^- \rangle < 0 < \langle Ah^+, h^+ \rangle
+\end{align*}
+
+\subsubsection{Def: forme semidefinite}
+
+$A$ viene detta \emph{semidefinita positiva} se vale:
+\begin{align*}
+  \langle Ah, h \rangle \geq 0 \quad \forall h \in \mathbb{R}^n
+\end{align*}
+
+\noindent $A$ viene detta \emph{semidefinita negativa} se vale:
+\begin{align*}
+  \langle Ah, h \rangle \leq 0 \quad \forall h \in \mathbb{R}^n
+\end{align*}
+
+\subsection{Teorema: classificazione delle forme quadratiche}
+
+\emph{Enunciato}: Se $A \in M_{2 \times 2} (\mathbb{R})$ e' simmetrica, allora scrivo
+$A = \begin{bmatrix} a & b \\ b & c \end{bmatrix}$ con $a, b, c \in \mathbb{R}$,
+allora:
+\begin{enumerate}
+  \item $q_A$ \textbf{e' positiva} sse $\begin{cases} a > 0 \\ det(A) > 0 \end{cases}$
+  \item $q_A$ \textbf{e' negativa} sse $\begin{cases} a < 0 \\ det(A) > 0 \end{cases}$
+  \item $q_A$ \textbf{e' indefinita} sse $\begin{cases} det(A) < 0 \end{cases}$
+  \item $q_A$ \textbf{e' semidefinita} sse $\begin{cases} det(A) = 0 \end{cases}$
+\end{enumerate}
+
+\noindent \emph{Dimostrazione}: \textbf{caso 1: $\Rightarrow$ espandiamo la forma
+quadratica e facciamo vedere che poiche' e' $>0$ ha il $\Delta < 0$ dal quale
+segue esattamente cio che vogliamo. $\Leftarrow$ espandiamo $q_A$ e distinguiamo
+tra i casi $h_2 = 0 \vee h_1 \neq 0$, nel primo si conclude semplicemente sostituendo,
+nell'altro raccoglie $h_2^2$ e risolve la disequazione in $\frac{h_1}{h_2}$ e si
+mostra che il $\Delta < 0$ sse $det(A)>0$ come da ipotesi} \\
+Dimostriamo il caso $(1)$ gli altri sono analoghi:
+\begin{itemize}
+  \item $\Rightarrow$: per ipotesi sappiamo che $q_A$ e' positiva, ovvero:
+    \begin{align*}
+      q_A(h) = ah_1^2 + 2bh_1h_2 + ch_2^2 > 0 \quad \forall (h_1, h_2) \neq (0,0)
+    \end{align*}
+    Scelgo $h=(1,0)$ e ho dunque $a>0$ (1). \\
+    Invece ponendo $h=(h_1, 1)$ ho $ah_1^2 + 2bh_1 + c > 0 \quad \forall h_1 \in \mathbb{R}$.
+    Affinche' cio' valga $forall h_1$ vogliamo che l'equazione di secondo grado
+    associata abbia $\Delta < 0$, ovvero $4b^2-4ac < 0$ e dunque $ac-b^2 > 0$
+    che possiamo vedere anche come $det(A) > 0$ (2). \qed
+  \item $\Leftarrow$: per ipotesi sappiamo che $det(A) > 0$ e che $a > 0$, dobbiamo
+    provare che $q_A$ e' positiva, ovvero che:
+    \begin{align*}
+      q_A(h) = ah_1^2 + 2bh_1h_2 + ch_2^2 > 0 \quad \forall (h_1, h_2) \neq (0,0)
+    \end{align*}
+    Procedo per casi:
+    \begin{itemize}
+      \item se $h_2 = 0$ allora ho $ah_1^2 > 0 \quad \forall h_1 \neq 0$ che
+        e' vero per l'iptesi $a>0$.
+      \item se $h_2 \neq 0$ allora devo provare $ah_1^2 + 2bh_1h_2 + ch_2^2
+        > 0 \quad \forall h_1 \neq 0$. Raccolgo $h_2$ (posso poiche' $h_2 \neq 0$) e mostro:
+        \begin{align*}
+          h_2^2(a(\frac{h_1}{h_2})^2 + \frac{2bh_1}{h_2} + c) > 0
+        \end{align*}
+        Dobbiamo dunque mostrare che:
+        \begin{align*}
+          a(\frac{h_1}{h_2})^2 + 2b(\frac{h_1}{h_2}) + c > 0 \quad \forall h_1 \neq 0
+        \end{align*}
+        che vale sse $\Delta < 0$, ovvero:
+        \begin{align*}
+          4b^2-4ac &< 0 \\
+          -4(ac - b^2) &< 0 \\
+          -4det(A) &< 0
+        \end{align*}
+        E poiche' $det(A)>0$ per ipotesi abbiamo mostrato quanto volevamo.
+    \end{itemize}
+    \qed
+\end{itemize}
+
+\subsection{Def: Formula di Taylor di grado secondo}
+
+Sia $f$ di classe $C^2$ su $A \subseteq \mathbb{R}^2$ aperto. Allora per ogni 
+$\overline{x} = (x_1, \ldots, x_n) \in A$ vale la formula:
+\begin{align*}
+  T_2(\overline{x} + h) = f(\overline{x}) + \langle \nabla f(\overline{x}), h \rangle
+  + \frac{1}{2} \langle H_f(\overline{x})h, h \rangle + o(\|h\|^2) \\
+  \forall h. \overline{x} + h \in A, \, o(\|h\|^2) \text{ con } h \to \overline{0}
+\end{align*}
+
+\noindent \emph{Dimostrazione}: \textbf{scrivo $g(t) = f(\overline{x} + th)$ dove $h$ versore
+e applico Taylor in una variabile su $g$. Notero' che i membri di primo e secondo
+grado combaciano, in quanto sono entrambi derivate di una funzione lungo una curva} \\
+Vogliamo mostrare che avendo $f$ classe $C^2$ in $A$, $\overline{x} \in A$,
+$h \in \mathbb{R}^n$ e $\|h\| = 1$ (riscriviamo il vecchio $h$ come $th$ in modo
+da avere il versore $h$ che indica la direzione e $t$ il valore del modulo) vale:
+\begin{align*}
+  T_2(\overline{x} + th) = f(\overline{x}) + \langle \nabla f(\overline{x}), th \rangle
+  + \frac{1}{2} \langle H_f(\overline{x})th, th \rangle + o(\|th\|^2) \\
+  \forall h. \overline{x} + h \in A, \, o(\|th\|^2) \text{ con } t \to 0
+\end{align*}
+Scrivo dunque $g(t) = f(\overline{x} + t h)$ definita in $t \in I(0, \varepsilon)$. \\
+Poiche' $f$ e' $C^2$ lo e' anche $g$ nelle variabili $t \approx 0$. Allora dal
+primo semestre posso scrivere la formulad i Taylor al secondo grado per $g$ in $0$:
+\begin{align*}
+  g(t) = g(0) + g'(0)t + \frac{1}{2!} g''(0) t^2 + o(t^2)
+\end{align*}
+Analizzo le parti che compongono la formula di Taylor in una variabile per $g$:
+\begin{enumerate}
+  \item Noto che $g(0) = f(\overline{x})$
+  \item Noto che $g'(t)$ sarebbe una derivata lungo una curva, quindi la scrivo come:
+    \begin{align*}
+      g'(t) &= \langle \nabla f(\overline{x} + th), \frac{\delta}{\delta t}(\overline{x} + th) \rangle \\
+      &= \langle \nabla f(\overline{x} + th), h \rangle
+    \end{align*}
+    E dunque il secondo membro di Taylor in una variabile $g'(0)t$ diventa:
+    \begin{align*}
+      g'(0)t &= \langle \nabla f(\overline{x} + 0h), h \rangle t \\
+      &= \langle \nabla f(\overline{x}), th \rangle
+    \end{align*}
+  \item Sviluppo infine il secondo membro $g''(t)$ appoggiandomi sul $g'(t)$ calcolato prima: \\
+    (si noti che si puo' derivare ulteriormente in quanto $\nabla f$ e' di classe $C^1$ per le ipotesi)
+    \begin{align*}
+      g''(t) &= \frac{\delta}{\delta t} \sum_{j=1}^n \delta_{x_j} f(\overline{x} + th) h_j \\
+      &= \sum_{j=1}^n (\frac{\delta}{\delta t} \delta_{x_j} f(\overline{x} + th)) h_j
+    \end{align*}
+    In quanto stiamo ancora facendo una derivata lungo una curva possiamo scrivere:
+    \begin{align*}
+      &= \sum_{j=1}^n (\langle \nabla (\delta_{x_j} f)(\overline{x} + th), h \rangle) h_j \\
+      &= \sum_{j=1}^n (\sum_{k=1}^n \delta_{x_k} \delta_{x_j} f(\overline{x} + th) h_k) h_j \\
+      &= \sum_{j=1,k=1}^n \delta_{x_k} \delta_{x_j} f(\overline{x} + th) h_k h_j
+    \end{align*}
+    Ora espandiamo il membro $\frac{1}{2} g''(0)t^2$ di Taylor in una variabile:
+    \begin{align*}
+      \frac{1}{2} g''(0) t^2 &= \frac{1}{2} \sum_{j=1,k=1}^n \delta_{x_k} \delta_{x_j} f(\overline{x} + 0h) h_k h_j \, t^2\\
+      &= \frac{1}{2} \langle H_f(\overline{x}) h, h \rangle t^2 \\
+      &= \frac{1}{2} \langle H_f(\overline{x}) th, th \rangle
+    \end{align*}
+  \item Notiamo che $o(\|th\|^2) = o(\|t\|^2 \cdot \|h\|^2)$ e poiche' $\|h\| = 1$
+    per definizione, possiamo riscriverlo come $o(\|t\|^2)$.
+\end{enumerate}
+Abbiamo dunque provato pezzo per pezzo che le due formule sono equivalenti. \qed
+
+\subsection{Teorema: sulle forme quadratiche positive ($\exists m > 0$)}
+
+\emph{Enunciato}: Sia $A \in M_{n \times n} (\mathbb{R})$ simmetrica. Suppongo $q_A$ definita positiva.
+Allora esiste $m > 0$ tale che: $q_A(h) \geq m \|h\|^2 \quad \forall h \in \mathbb{R}^n$. \\ \\
+
+\noindent \emph{Dimostrazione}: \textbf{idea} \\
+Dimostro in $n=2$. Dobbiamo provare che:
+\begin{align*}
+  \exists m > 0. \quad \langle A h, h \rangle \geq m \|h\|^2 \quad \forall h \in \mathbb{R}^2
+\end{align*}
+Ho due casi:
+\begin{enumerate}
+  \item se $h = \overline{0}$ devo mostrare che: $\exists m > 0. 0 \geq 0$, ovvio.
+  \item quando $h \neq \overline{0}$ devo provare che esiste $m > 0$ tale che:
+    \begin{align*}
+      \frac{1}{\|h\|^2} \langle A h, h \rangle &\geq m \quad \forall h \in \mathbb{R}^2 \setminus \{0\} \\
+      \langle A \frac{h}{\|h\|}, \frac{h}{\|h\|} \rangle &\geq m
+    \end{align*}
+    Osservo che $\frac{h}{\|h\|}$ e' un versore, dunque:
+    \begin{align*}
+      \{ \frac{h}{\|h\|} \mid h \in \mathbb{R}^2\setminus\{0\} \} =
+      \{(cos \Theta, sin \Theta) \mid \Theta \in [0, 2\pi]\}
+    \end{align*}
+    Devo dunque dimostrare che:
+    \begin{align*}
+      \langle A \begin{pmatrix}cos \Theta \\ sin \Theta \end{pmatrix}, \begin{pmatrix}cos \Theta \\ sin \Theta \end{pmatrix} \rangle &\geq m
+      \quad \forall \Theta \in [0, 2\pi]
+    \end{align*}
+    Poniamo $f: [0, 2\pi] \to \mathbb{R}$, $f(\Theta) = \langle A \begin{pmatrix}cos \Theta \\ sin \Theta \end{pmatrix}, \begin{pmatrix}cos \Theta \\ sin \Theta \end{pmatrix} \rangle$,
+    ovvero $f(\Theta) = a \cos^2 \Theta + 2b \cos \Theta \sin \Theta + c \sin^2 \Theta$. \\
+    Poiche' $q_A$ e' definita positiva sappiamo che $f(\Theta) > 0 \quad \forall \Theta \in [0,2\pi]$. \\
+    Essendo $f$ continua e $[0,2\pi]$ chiuso e limitato per Weierstrass ho che:
+    \begin{align*}
+      \exists \overline{\Theta} \in [0,2\pi]. \quad &f(\overline{\Theta}) \leq f(\Theta) \quad \forall \Theta \in [0,2\pi] \\
+      m = &f(\overline{\Theta}) \quad \text{scelgo } m \text{ proprio come quel minimo}
+    \end{align*}
+    Dunque ho che:
+    \begin{align*}
+      m \leq \langle A \begin{pmatrix}cos \Theta \\ sin \Theta \end{pmatrix}, \begin{pmatrix}cos \Theta \\ sin \Theta \end{pmatrix} \rangle
+      \quad \forall \Theta \in [0,2\pi]
+    \end{align*}
+    Sostituisco $x - \overline{x}$ con $h$ per semplicita' di notazione:
+    E so che $m > 0$ poiche' $q_A$ e' positiva per ipotesi. \qed
+\end{enumerate}
+
+\subsection{Teorema: classificazione dei punti critici}
+
+\begin{quote}
+  Questo teorema offre una \textbf{condizione sufficiente}($\Rightarrow$) del second'ordine
+  per determinare massimi/minimi/selle.
+\end{quote}
+
+Sia $A \subseteq \mathbb{R}^2$ aperto, sia $F: A \to \mathbb{R}$ di classe $C^2$.
+Sia $(\overline{x}, \overline{y}) \in A$ punto critico di $f$, allora
+\begin{enumerate}
+  \item se $H_f(\overline{x}, \overline{y})$ \textbf{e' positiva} allora $(\overline{x}, \overline{y})$ e' un punto di minimo (locale).
+  \item se $H_f(\overline{x}, \overline{y})$ \textbf{e' negativa} allora $(\overline{x}, \overline{y})$ e' un punto di massimo (locale).
+  \item se $H_f(\overline{x}, \overline{y})$ \textbf{e' indefinita} allora $(\overline{x}, \overline{y})$ e' un punto di sella.
+\end{enumerate}
+
+\begin{quote}
+  OSS: \textbf{sono condizioni sufficienti}, quindi $(\overline{x}, \overline{y})
+  \text{ minimo } \not\Rightarrow H_f(\overline{x}, \overline{y})$ \text{ positiva}
+\end{quote}
+
+\noindent \emph{Dimostrazione}: \textbf{idea} \\
+Dimostriamo in $n=2$ solo il caso $1$. \\
+Sia $\overline{x} \in A$ un punto critico con $H_f(\overline{x}) > 0$.
+Voglio mostrare che $\overline{x}$ sia un punto di minimo, ovvero:
+\begin{align*}
+  \exists \delta > 0. \quad f(x) &\geq f(\overline{x}) \quad \forall x \in B(\overline{x}, \delta) \\
+  \quad f(x) - f(\overline{x}) &\geq 0
+\end{align*}
+So che vale Taylor di secondo grado nel punto:
+\begin{align*}
+  T_2(\overline{x} + h) = f(\overline{x}) + \langle \nabla f(\overline{x}), h \rangle
+  + \frac{1}{2} \langle H_f(\overline{x})h, h \rangle + o(\|h\|^2) \\
+  h \to \overline{0}
+\end{align*}
+Notiamo che $\langle \nabla f(\overline{x}), h \rangle = 0$ poiche' $\nabla f(\overline{x}) = \overline{0}$ e scriviamo dunque:
+\begin{align*}
+  T_2(\overline{x} + h = x) - f(\overline{x}) = \frac{1}{2} \langle H_f(\overline{x}) h, h \rangle + o(\|h\|^2)
+\end{align*}
+Lo sostituiamo nella tesi del punto di minimo e dobbiamo dunque mostrare che:
+\begin{align*}
+  \exists \delta > 0. \quad
+  \frac{1}{2} \langle H_f(\overline{x}) h, h \rangle + o(\|h\|^2) \geq 0 \quad \forall h \in B(0, \delta) \\
+\end{align*}
+Per concludere mostro che $\exists m > 0$ per cui (dovevmo mostrare $\geq 0$, se mostro
+per un numero maggiore di zero, a maggior ragione, funziona ugualmente):
+\begin{align*}
+  \frac{1}{2} \langle H_f(\overline{x}) h, h \rangle + o(\|h\|^2) \geq \frac{m}{4} \|h\|^2
+  (1) + (2) \geq \frac{m}{4} \|h\|^2
+\end{align*}
+\begin{enumerate}
+  \item Applicando il teorema sulle forme quadratiche positive con
+    $A=H_f(\overline{x})$ ho che ($\exists m > 0. \quad \langle A h, h \rangle \geq m \|h\|^2$):
+    \begin{align*}
+      \langle H_f(\overline{x}) h, h \rangle &\geq m \|h\|^2 \quad \text{e quindi anche} \\
+      \frac{1}{2}\langle H_f(\overline{x}) h, h \rangle &\geq \frac{m}{2} \|h\|^2 \\
+      (1) &\geq \frac{m}{2} \|h\|^2
+    \end{align*}
+  \item Devo infine mostrare che $o(\|h\|^2) > m \|h\|^2$, ovvero espandendo la definizione
+    di di limite:
+    \begin{align*}
+      \forall \varepsilon > 0. \exists \delta > 0. \quad |\frac{o(\|h\|^2)}{\|h\|^2}| < \varepsilon
+      \quad \forall h \in B(0, \delta)
+    \end{align*}
+    Scelgo $\varepsilon = \frac{m}{4}$, e ho dunque:
+    \begin{align*}
+      \exists \delta > 0. \quad |\frac{o(\|h\|^2)}{\|h\|^2}| < \frac{m}{4} \\
+      -\frac{m}{4}\|h\|^2 < o(\|h\|^2) < \frac{m}{4}\|h\|^2 \quad \text{se } \|h\| < \delta
+    \end{align*}
+\end{enumerate}
+Dunque se $\|h\| < \delta$($\delta$ e' a nostro piacimento quindi lo sara') ho che:
+\begin{align*}
+  (1) + (2) \geq \frac{m}{2} \|h\|^2 - \frac{m}{4} \|h\|^2 = \frac{m}{4} \|h\|^2
+\end{align*}
+\qed
+
+\subsection{Prop: condizione necessaria al secondo ordine}
+
+Sia $A \subseteq \mathbb{R}^2$ aperto, sia $F: A \to \mathbb{R}$ di classe $C^2$.
+Sia $(\overline{x}, \overline{y}) \in A$ punto di minimo(massimo) di $f$, allora
+\begin{align*}
+  \begin{cases}
+    \nabla f(\overline{x}, \overline{y}) = \overline{0} \\
+    H_f(\overline{x}, \overline{y}) \text{ e' \textbf{semidefinita} positiva(negativa)}
+  \end{cases}
+\end{align*}
+
+\begin{quote}
+  OSS: e' importante specificare che l'$H_f$ e' \textbf{semidefinita} in quanto
+  potrebbe avere $det(H_f) = 0$ ma essere comunque un punto di massimo/minimo.
+\end{quote}
+
+\noindent \emph{Dimostrazione}: \textbf{provo con $\overline{x}$ minimo. Costruisco
+come in Taylor la funzione $g(t) = f(\overline{x} + tv)$ che ha minimo anch'essa in
+$t=0$. Ne segue che $g'(0) = 0, g''(0) > 0$ che per come fatto vedere in Taylor
+equivale a cio' che vogliamo.} \\
+Sia $\overline{x}$ punto di minimo per $f$. Sia $v \in \mathbb{R}^n$ tale che $\|v\|=1$.
+Considero $g(t) = f(\overline{x} + tv)$ definita per $t \in I(0, \varepsilon)$. \\
+Poiche' $f$ ha minimo locale in $\overline{x}$, $g$ avra' minimo locale in $t \approx 0$. \\
+Dunque $g'(0) = 0 \quad (1)$ e sopratutto $g''(0) \geq 0 \quad (2)$ il che implica (come visto per Taylor):
+\begin{align*}
+  \begin{cases}
+    \langle \nabla f(\overline{x}), v \rangle = 0 & (1)\\
+    \langle \frac{1}{2} H_f(\overline{x}) v, v \rangle \geq 0 & (2)
+  \end{cases} \forall v \in \mathbb{R}^n. \|v\|=1
+\end{align*}
+Da cui segue:
+\begin{align*}
+  \begin{cases}
+    \nabla f(\overline{x}) = 0 \\
+    H_f(\overline{x}) \geq 0
+  \end{cases}
+\end{align*}
+\qed
+
+\subsection{Def: funzione convessa}
+
+Presa $f: ]a,b[ \to \mathbb{R}$ derivabile. $f$ e' convessa se $\forall \overline{x},
+x \in ]a,b[$ vale 
+\begin{align*}
+  f(x) \geq f(\overline{x}) + f'(\overline{x}) (x-\overline{x})
+\end{align*}
+
+\begin{quote}
+  OSS: si noti che in $\overline{x}$ il polinomio di Taylor in una variabile di
+  grado uno vale esattamente $T_1(x) = f(\overline{x}) + f'(\overline{x}) (x-\overline{x})$. \\
+  La definizoine ci dice dunque che una funzione si dice convessa se maggiore o
+  uguale di ogni sua possibile retta tangente.
+\end{quote}
+
+\subsection{Teorema: caratterizzazione funzioni convesse-derivabili}
+
+\emph{Enunciato}: Sia $f: ]a,b[ \to \mathbb{R}$ derivabile, allora $f$ e' convessa sse $f'$ e'
+crescente in $]a,b[$ ($x_1, x_2 \in \mathcal{D}(f') \, x_1 < x_2 \Rightarrow f'(x_1) \leq f'(x_2)$). \\
+
+\noindent\emph{Dimostrazione}: \textbf{Per $\Rightarrow$ uso l'ipotesi di convessita'
+mettendo $\overline{x} = x_1, x = x_2$ e poi scambiando per ottenere due ipotesi che
+(invertendo i segni) mi danno una disequazione che altero rimuovendo un numero $>$ 0 e qed. \\
+Per $\Leftarrow$ separo in casi in base a $\overline{x} > x$ o opposto, e uso lagrange
+in entrambi con intervallo appropriato.
+}
+
+\begin{enumerate}
+  \item \textbf{Caso $\Rightarrow$}: Per ipotesi so che $f$ e' convessa e derivabile nel
+  suo dominio, dunque devo vedere se e' crescente, ovvero presi $x_1, x_2 \in ]a,b[$
+  tali che $x_1 < x_2$ mostrare $f'(x_1) \leq f'(x_2)$. Per l'iptesi di convessita' ho che:
+  \begin{align*}
+    f(x) &\geq f(\overline{x}) + f'(\overline{x}) (x-\overline{x}) & \forall x, \overline{x} \in ]a,b[ \\
+    \text{pongo } \overline{x} = x_1, x = x_2 \\
+    f(x_2) - f(x_1) &\geq  f'(x_1) (x_2-x_1) & (H_1) \\
+    \text{pongo } \overline{x} = x_2, x = x_1 \\
+    f(x_1) - f(x_2) &\geq  f'(x_2) (x_1-x_2) & (H_2) \\
+    \text{cambiando i segni a una e unendo} \\
+    f'(x_1)(x_2-x_1) \leq f(x_1) &- f(x_2) \leq f'(x_2) (x_2-x_1)
+  \end{align*}
+  Ho dunque che $f'(x_1)(x_2-x_1) \leq f'(x_2) (x_2-x_1)$ e poiche' $(x_2-x_1) > 0$
+  giungo a $f'(x_1) \leq f'(x_2)$. \qed
+  \item \textbf{Caso $\Leftarrow$}: Per ipotesi $f$ e' derivabile in $]a,b[$ e crescente.
+    Devo mostrare che $f$ e' convessa, ovvero:
+    \begin{align*}
+      f(x) \geq f(\overline{x}) + f'(\overline{x}) (x-\overline{x})
+    \end{align*}
+    Ho due casi: $\overline{x} < x$ o $x < \overline{x}$. Il caso $\overline{x} = x$ e' ovvio.
+    \begin{itemize}
+      \item ipotesi: $\overline{x} < x$. uso lagrange su $[\overline{x}, x]$ per cui
+        $\exists c \in ]a,b[$ tale che $f(x)-f(\overline{x})=f'(x)(x-\overline{x})$.
+      \item ipotesi: $x < \overline{x}$. uso lagrange su $[x, \overline{x}]$ per cui
+        $\exists c \in ]a,b[$ tale che $f(\overline{x})-f(x)=f'(x)(\overline{x}-x)$,
+        ovvero (cambio i segni) $f(x)-f(\overline{x})=f'(x)(x-\overline{x})$.
+    \end{itemize}
+    \qed
+\end{enumerate}
+
+\subsection{Teorema: caratterizzazione di funzioni convesse derivabili due volte}
+
+\emph{Enunciato}: Se $f: ]a,b[ \to \mathbb{R}$ e' derivabile due volte, allora
+\begin{align*}
+  f \text{ e' convessa } \iff f''(x) \geq 0 \quad \forall x \in ]a,b[
+\end{align*} \\
+
+\noindent\emph{Dimostrazione}: \textbf{usare il teorema per la caratterizzazione
+su funzioni derivabili, e poi che la derivata e' crescente se la derivata seconda e' $\geq 0$.} \\
+Per il teorema di caratterizzazione delle funzioni convesse-derivabili, $f$ e'
+convessa sse $f'$ e' crescenete. Sappiamo poi che $f'$ e' crescente sse $f''(x) \geq 0$
+in $]a,b[$, ovvio per ipotesi. \qed
+
+\subsection{Teorema: Taylor secondo ordine con resto secondo Lagrange in $n=1$}
+
+\emph{Enunciato}: Presa $f: [a, b] \to \mathbb{R}$ di classe $C^2$, allora
+\begin{align*}
+  \forall \overline{x}, h. \overline{x} + h \in [a,b], \exists \Theta \in ]0,1[ \\
+  f(\overline{x} + h) = f(\overline{x}) + f'(\overline{x})h + \frac{1}{2}f''(\overline{x}+\Theta h) h^2
+\end{align*}
+
+\begin{quote}
+  OSS: anche Lagrange $f(\overline{x} + h) = f(\overline{x}) + f'(\overline{x} + \Theta h)h$ 
+  e' una formula di Taylor senza l'o-piccolo
+\end{quote}
+
+\noindent \emph{Dimostrazione}: \textbf{idea} \\
+Devo mostrare che $f: C^2$ su $]a_0, b_0[$, preso $[a,b] \subseteq ]a_0,b_0[$,
+$\exists c \in ]a,b[$ tale che:
+\begin{align*}
+  f(b) = f(a) + f'(a)(b-a) + f''(c)\frac{(b-a)^2}{2}
+\end{align*}
+Cerco $k \in \mathbb{R}$ tale che:
+\begin{align*}
+  f(b) - f(a) - f'(a)(b-a) - k\frac{(b-a)^2}{2} = 0 \qquad (H_1)
+\end{align*}
+Voglio mostrare $k = f''(c)$ per un opportuno $c \in ]a, b[$. \\
+Definisco $h: [a,b] \to \mathbb{R}$, $h(x) \mapsto f(b) - f(x) - f'(x)(b-x) - k\frac{(b-x)^2}{2}$ dove
+ho sostituito $a = x$ nella formula precedente. \\
+Allora ho che $h(b) = f(b) - f(b) - f'(b)0 - 0 = 0$ e $h(a) = f(b) - f(a) - f'(a)(b-a) - k\frac{(b-a)^2}{2}$
+che sappiamo valere $0$ per $H_1$. Visto che $h(a) = h(b)$ posso applicare Rolle:
+\begin{align*}
+  \exists c \in ]a,b[. \quad h'(c) = 0
+\end{align*}
+Derivando $h$ e inserendola in quanto trovato si ottiene:
+\begin{align*}
+  \exists c \in ]a,b[. \quad -f'(c) - f''(c)(b-c) + f'(c) + k(b-c) &= 0\\
+  - f''(c)(b-c) + k(b-c) &= 0 \\
+  \exists c \in ]a,b[. \quad (b-c)(k - f''(c)) &= 0
+\end{align*}
+Poiche' $c > b$ l'unica possibilita' e' che $-f''(c) - k = 0$ ovvero $f''(c) = k$.
+Abbiamo dunque trovato il $k$ opportuno. \qed
+
+\subsection{Teorema: Taylor secondo ordine con resto secondo Lagrange in $n>1$}
+
+\emph{Enunciato}: Sia $f: A \to B$ con $A \subseteq \mathbb{R}^n$. Sia $f$ di
+classe $C^2$ (dunque $f, \delta f, \delta^2 f$ continue), allora:
+\begin{align*}
+  \forall \overline{x}, h \in \mathbb{R}^n. \exists \Theta \in ]0, 1[ \text{ tali che } \\
+  f(\overline{x} + h) = f(\overline{x}) + \langle \nabla f(\overline{x}), h
+  \rangle + \frac{1}{2} \langle H_f(\overline{x} + \Theta h)h, h \rangle
+\end{align*}
+
+\noindent \emph{Dimostrazione}: \textbf{idea} \\
+Dati $\overline{x}, \overline{x} + h \in \mathbb{R}^n$ considero $h: [0,1] \to \mathbb{R}$
+di classe $C^2$ tale che $h(t) \mapsto f(\overline{x} + th)$. Si ha dunque che:
+\begin{align*}
+  h'(t) = \langle \nabla f(\overline{x} + th), h \rangle = \sum_{j=1}^n \delta_{x_j} f(\overline{x} + h)h_j \\
+  h''(t) = \frac{\delta}{\delta t} \sum_{j=1}^n \delta_{x_j} f(\overline{x} + h) h_j = \langle H_f(\overline{x} + th)h, h \rangle
+\end{align*}
+Scrivo poi Taylor "secondo Lagrange" per la funzione $h$ di una variabile,
+ponendo $\overline{x} = 0, h = 1$:
+\begin{align*}
+  h(1) = h(0) + h'(0)(1-0) + h''(\Theta)\frac{(1-0)^2}{2} \qquad \text{con } \Theta \in ]0,1] \\
+  f(\overline{x} +h) = f(\overline{x}) + \langle \nabla f(\overline{x}), h \rangle +
+  \frac{1}{2} \langle H_f (\overline{x} + \Theta h) h, h \rangle
+\end{align*}
+
+\subsection{Def: segmento}
+
+Definiamo un \emph{segmento tra} $x, y \in \mathbb{R}^n$ con la notazione:
+\begin{align*}
+  [x,y] = \{x+t(y-x) | 0 \leq t \leq 1\}
+\end{align*}
+Risulta dunque al variare di $t$:
+\begin{itemize}
+  \item $t = 0 \Rightarrow x$.
+  \item $t = 1 \Rightarrow y$.
+  \item $t = \frac{1}{2} \Rightarrow \frac{1}{2}(x + y)$.
+\end{itemize}
+
+\subsection{Def: insieme convesso}
+
+Si dice che $A$ e' convesso se $\forall x, y \in A$ risulta che $[x,y] \subseteq A$.
+
+\begin{quote}
+  Si puo' pensare ad un insieme convesso, dal quale si prendono due punti e si traccia
+  un segmento che li collega. Se si riesce a trovare un segmento che tale che i suoi
+  punti non appartengono tutti all'insieme scelto, allora esso non e' convesso.
+\end{quote}
+
+\subsection{Def: Funzioni convesse in $n>1$}
+
+Sia $A \subseteq \mathbb{R}^n$ un insieme convesso. Una funzione $f: A \to \mathbb{R}^n$
+si dice convessa su $A$ se vale per $\forall x, \overline{x} \in A$:
+\begin{align*}
+  f(x) \geq f(\overline{x}) + \langle \nabla f(\overline{x}), x - \overline{x} \rangle \\
+  f(x) \geq T_1(x) \text{ nel punto } \overline{x}
+\end{align*}
+
+\begin{quote}
+  Intuitivamente: vogliamo che il $Graf(f)$ sia sopra a $z = T_1$ il piano tangente.
+\end{quote}
+
+\subsection{Teorema: caratterizzazione della complessita' con la matrice Hessiana}
+
+\emph{Enunciato}: Presa $f: \mathbb{R}^n \to \mathbb{R}$ di classe $C^2$, si puo'
+dire che $f$ \emph{e' convessa} sse $H_f(x)$ e' semidefinita positiva $\forall x \in \mathbb{R}^n$. \\
+
+\noindent \emph{Dimostrazione}: \textbf{idea} \\
+\begin{itemize}
+  \item caso $\Rightarrow$: ipotesi: $f$ convessa, dobbiamo dimostrare che $\forall \overline{x}
+    \in \mathbb{R}^n. H_f(\overline{x}) \geq 0$ (semidefinita positiva). Fisso $\overline{x}$ e uso
+    Taylor "secondo Lagrange" in $\overline{x}$. Ho dunque che $\forall h \in \mathbb{R}^n. \exists \Theta \in ]0,1]$ tale che
+    \begin{align*}
+      f(\overline{x} + h) = f(\overline{x}) + \langle \nabla f(\overline{x}), h \rangle +
+      \frac{1}{2} \langle H_f(\overline{x} + \Theta h) h, h \rangle \quad (H_1)
+    \end{align*}
+    Dalla definizione di $f$  convessa ho $f(\overline{x} + h) \geq f(\overline{x}) + \langle
+    \nabla f(\overline{x}), h \rangle$ $(H_2)$. \\
+    Unendo $H_1$ e $H_2$ ho che $\langle H_f(\overline{x} + \Theta h) h, h \rangle
+    \geq 0 \quad \forall h \in \mathbb{R}^n$. \\
+    Fisso $v \in \mathbb{R}^n \neq \overline{0}$ e mostriamo che
+    $\langle H_f(\overline{x} + \Theta v) v, v \rangle \geq 0$. Faccio cio' costruendo
+    la successione $h_k = \frac{1}{k} v. k \in \mathbb{N}$. \\
+    Noto che $h_k \to_{n\to\infty} 0$. Sostituisco $h_k$ a $v$ e proviamo:
+    \begin{align*}
+      \langle H_f(\overline{x} + \Theta h_k) \frac{1}{k}v, \frac{1}{k}v \rangle &\geq 0 \\
+      (\frac{1}{k})^2 \langle H_f(\overline{x} + \Theta h_k) v, v \rangle &\geq 0 \quad \text{noto } h_k \to_{n\to\infty} 0\\
+      \langle H_f(\overline{x}) v, v \rangle &\geq 0 \\
+    \end{align*} \qed
+  \item caso $\Leftarrow$: ipotesi: $\forall \overline{x} \in \mathbb{R}^n.
+    H_f(\overline{x}) \geq 0$, devo mostrare che $f$ e' convessa, ovvero
+    \begin{align*}
+      f(x) \geq f(\overline{x}) + \langle \nabla f(\overline{x}), x-\overline{x} \rangle.
+    \end{align*}
+    Poiche' $f$ di classe $C^2$ posso scrivere Taylor di secondo ordine con resto secondo Lagrange:
+    \begin{align*}
+      \exists \Theta \in ]0,1] \quad f(x) = f(\overline{x}) + \langle \nabla f(\overline{x}), x - \overline{x} \rangle +
+      \frac{1}{2} \langle H_f(x) (x-\overline{x}), (x-\overline{x}) \rangle
+    \end{align*}
+    Poiche' $H_f$ e' semidefinita positiva si ha che
+    \begin{align*}
+      \frac{1}{2} \langle H_f(x) (x-\overline{x}), (x-\overline{x}) \rangle \geq 0
+    \end{align*}
+    per cui la funzione riscritta secondo Taylor e' sempre maggiore o uguale di
+    \begin{align*}
+      f(\overline{x}) + \langle \nabla f(\overline{x}), x - \overline{x} \rangle
+    \end{align*}
+    \qed
+\end{itemize}
+
+\subsection{Def: insiemi $x,y$-semplici}
+
+Sia $[a,b]$ un intervallo e siano $h_1, h_2$ due funzioni $[a,b] \to \mathbb{R}$ con
+la proprieta' $h_1(x) \leq h_2(x) \quad \forall x \in [a,b]$. \\
+L'insieme individuato viene detto \emph{$y$-semplice} e scritto come segue:
+\begin{align*}
+  A = \{ (x, y) \in \mathbb{R}^2 | x \in [a,b] \wedge h_1(x) \geq y \geq h_2(x) \}
+\end{align*}
+
+\noindent Sia $[c,d]$ un intervallo e siano $g_1, g_2$ due funzioni $[c,d] \to \mathbb{R}$ con
+la proprieta' $g_1(y) \leq g_2(y) \quad \forall y \in [c,d]$. \\
+L'insieme individuato viene detto \emph{$x$-semplice} e scritto come segue:
+\begin{align*}
+  A = \{ (x, y) \in \mathbb{R}^2 | y \in [c,d] \wedge g_1(y) \geq x \geq g_2(y) \}
+\end{align*}
+
+\subsection{Prop: formula di riduzione per integrali doppi}
+
+Preso un insieme $A$ del tipo $y$-semplice e una funzione
+$f: A \to \mathbb{R}$ continua, si ha che:
+\begin{align*}
+  \int_A f(x,y) \, dx dy = \int_a^b \int_{h_1}^{h_2} f(x,y) \, dy \, dx
+\end{align*}
+
+\noindent Preso un insieme $B$ del tipo $x$-semplice e una funzione
+$u: A \to \mathbb{R}$ continua, si ha che:
+\begin{align*}
+  \int_B u(x,y) \, dx dy = \int_c^d \int_{g_1}^{g_2} u(x,y) \, dx \, dy
+\end{align*}
+
+\pagebreak
+\section{Domande secondo parziale}
+
+\begin{enumerate}
+  \item Enunciare il \textbf{teorema fondamentale del calcolo integrale}.
+  \item Cosa significa che la funzione $f: \mathbb{R}^2 \to \mathbb{R}$ e'
+    differenziabile nel punto $(1,2)$?
+    \begin{itemize}
+      \item Esistono le derivate parziali $\frac{\delta f}{\delta x}, \frac{\delta f}{\delta y}$.
+      \item Vale la formula di Taylor: $f(x,y) = f(1,2) + \langle \nabla f(1,2),
+        (x-1,y-2\rangle + o(\|(x-1, y-2)\|)$ con $(x, y) \to (1, 2)$.
+    \end{itemize}
+
+  \item Data $f: \mathbb{R}^2 \to \mathbb{R}$ scrivere cosa significa che $f = f(x_1, x_2)$
+    e' derivabile nel punto $\overline{x} = (1,2)$ rispetto alla direzione $v = (\sqrt{2}/2, \sqrt{2}/2)$. \\
+    Il seguente limite converge:
+    \begin{align*}
+      \lim_{t \to 0} \frac{f(\overline{x} + tv) - f(\overline{x})}{t}
+      = \lim_{t \to 0} \frac{f(1+\frac{t \sqrt{2}}{2}, 2 + \frac{t \sqrt{2}}{2}) - f(1, 2)}{t}
+    \end{align*}
+
+  \item Enunciare il teorema fondamentale del calcolo integrale per la funzione
+    $g: [1, 2] \to \mathbb{R}$. \\
+    Ipotesi: $g: [0, 1] \to \mathbb{R}$ continua, sia $G: [0, 1] \to \mathbb{R}$,
+    $G(x) = \int_0^x g(t) \, dt$. \\
+    Teorema: $G$ e' derivabile, $G'(x) = g(x) \forall x \in [0, 1]$.
+
+  \item Enunciare il teorema della media integrale per la funzione $f: [2, 8] \to \mathbb{R}$. \\ \\
+    Ipotesi: $f: [2, 8] \to \mathbb{R}$ continua nel dominio. \\
+    Teorema: $\exists c \in [2, 8] \quad f(c) = \frac{1}{8-2} \int_2^8 f(x) \, dx$
+  \item Data la funzione $f(x,y) = \ln(1+\sqrt{x+y^2})$ scrivere l'equazione del
+    piano tangente al grafico di $f$ nel punto $(9, -4, f(9, -4))$ (a). Individuare
+    poi la direzione di massima crescita nel sottostante punto $(9, -4)$ (b). Stabilire
+    poi il valore della derivata parziale in tale direzione (c).
+    \begin{enumerate}
+      \item Il piano tangente e' dato dal polinomio di Taylor ponendo $(\overline{x},
+        \overline{y})$ uguali al punto dato. Si ha dunque:
+        \begin{align*}
+          \nabla f(x,y) &= (\frac{1}{1+\sqrt{x+y^2}} \cdot \frac{1}{2\sqrt{x+y^2}}, \frac{1}{1+\sqrt{x+y^2}} \cdot \frac{1}{2\sqrt{x+y^2}} \cdot 2y) \\ \\
+          z = T_1(x, y) &= f(\overline{x}, \overline{y}) - \langle \nabla f(\overline{x},
+          \overline{y}), (x-\overline{x}, y-\overline{y}) \rangle \\
+          z = T_1(x, y) &= \ln(6) - \langle (\frac{1}{60}, \frac{-2}{15}), (x-9, y+4) \rangle \\
+          z = T_1(x, y) &= \ln(6) - \frac{1}{60}(x-9) - \frac{2}{15}(y+4)
+        \end{align*}
+      \item La direzione massima (che deve essere un versore, e va dunque reso
+        di norma unitaria) e' data dal calcolo del gradiente nel punto dato:
+        \begin{align*}
+          v_{max} &= \nabla f(9, -4) = \frac{1}{60}(1, -8) \\
+          \|v_{max}\| &= \sqrt{1^2 + (-8)^2} = \sqrt{65} \\
+          \hat v_{max} &= \frac{v_{max}}{\|v_{max}\|} = (\frac{1}{\sqrt{65}}, \frac{-8}{\sqrt{65}})
+        \end{align*}
+      \item La derivata parziale in tale direzione puo' essere calcolata tramite
+        il prodotto scalare tra il gradiente nel punto e il versore direzione:
+        \begin{align*}
+          \frac{\delta f}{\delta \hat v_{max}} (9, -4) &= \langle \frac{1}{60} (1, -8), \frac{1}{\sqrt{65}} (1, -8) \rangle \\
+          \frac{\delta f}{\delta \hat v_{max}} (9, -4) &= \frac{1}{60 \sqrt{65}} (1^2 + (-8)^2) \\
+          \frac{\delta f}{\delta \hat v_{max}} (9, -4) &= \frac{65}{60 \sqrt{65}} = \frac{13}{12\sqrt{65}}
+        \end{align*}
+    \end{enumerate}
+  \item Sia $f: \mathbb{R}^2 \to \mathbb{R}$ una funzione in due variabili che
+    soddisfa $f(x,y) = f(y,x) \quad \forall (x,y) \in \mathbb{R}^2$. Usando le definizioni
+    pertinenti verificare che vale $\frac{\delta f}{\delta x}(a,b) =
+    \frac{\delta f}{\delta y}(b,a) \quad \forall (a,b) \in \mathbb{R}^2$. Applico
+    la definizione di derivata parziale a entrambi i membri dell'equazione:
+    \begin{align*}
+      \frac{\delta f}{\delta x}(a,b) = \lim_{t \to 0} \frac{f(a + t, b) - f(a,b)}{t} &=
+      \lim_{t \to 0}\frac{f(b, a+t) - f(b,a)}{t} = \frac{\delta f}{\delta y}(b,a) \\
+      \lim_{t \to 0} \frac{f(b, a+t) - f(b,a)}{t} &= \lim_{t \to 0}\frac{f(b, a+t) - f(b,a)}{t}
+    \end{align*}
+    \qed
+  \item Calcolare la derivata della funzione $f(x,y) = x + 3y$ lungo la curva
+    $r(t) = (\cos t, \sin t)$ in due modi: scrivendo la funzione composta
+    e derivandola direttamente (a), poi usando il teorema visto in classe (b).
+    \begin{enumerate}
+      \item
+        \begin{align*}
+          (f \circ r)(t) &= f(r(t)) = \cos t + 3\sin t \\
+          (f \circ r)'(t) &= -\sin t + 3\cos t
+        \end{align*}
+      \item
+        \begin{align*}
+          (f \circ r)'(t) &= \langle \nabla f(r(t)), r'(t) \rangle \\
+          r'(t) &= (r_1'(t), r_2'(t)) = (-\sin t, \cos t) \\
+          \nabla f(t) &= (1, 3) \\
+          (f \circ r)'(t) &= \langle (1, 3), (-\sin t, \cos t) \rangle \\
+            &= -\sin t + 3\cos t
+        \end{align*}
+    \end{enumerate}
+  \item Data $f: \mathbb{R}^n \to \mathbb{R}, f: (x, y) \mapsto x^2 - xy^2 + y^2 - 3$
+    trovare i/il vettori/e $v \in \mathbb{R}^2$ di norma unitaria per cui 
+    $\frac{\delta f}{\delta v} (2, -2) = -3$: \\ \\
+    Ho due condizioni: (1) $v$ di norma unitaria, deve dunque valere $\| v \| = 1$,
+    (2) $\frac{\delta f}{\delta v} (2, -2) = -3$. Le metto a sistema, scrivendo
+    $v = (x, y)$:
+    \begin{align*}
+      \nabla f(x, y) &= (2x - y^2, -2xy + 2y) \\
+    \end{align*}
+    \begin{align*}
+      \begin{cases}
+        x^2 + y^2 = 1 \\
+        \langle \nabla f(2, -2), (x, y) \rangle = -3
+      \end{cases} \Rightarrow 
+      \begin{cases}
+        x^2 + y^2 = 1 \\
+        \langle (0, 4), (x, y) \rangle &= -3 \Rightarrow y = -\frac{3}{4}
+      \end{cases}
+    \end{align*}
+    \begin{align*}
+      \begin{cases}
+        y = -\frac{3}{4} \\
+        x^2 + \frac{9}{16} = 1
+      \end{cases} \Rightarrow x^2 = \frac{7}{16} \Rightarrow x = \pm \frac{\sqrt{7}}{4}
+    \end{align*}
+    Abbiamo trovato i vettori $(\pm \frac{\sqrt{7}}{4}, -\frac{3}{4})$, ora bisogna
+    renderli versori (di norma unitaria):
+    \begin{align*}
+      \|(\pm \frac{\sqrt{7}}{4}, -\frac{3}{4})\| = \sqrt{\frac{7}{16} + \frac{9}{16}}
+      = \sqrt{\frac{16}{16}} = 1
+    \end{align*}
+    Notiamo che sono gia' di norma unitaria, e abbiamo dunque gia' trovato i versori di nostro interesse.
+
+  \item Data $f: \mathbb{R}^n \to \mathbb{R}, f: (x, y) \mapsto x^2 - xy^2 + y^2 - 3$
+    srivere il polinomio di Taylor del secondo ordine con punto iniziale in$(2, -2)$. \\ \\
+    Calcolo le parti necessarie per comporre $\nabla f$ e $H_f$ che servono per
+    calcolare il polinomio di Taylor di secondo ordine.
+    \begin{align*}
+      f_x(x,y) = 2x-y^2 \qquad f_y(x,y) = -2xy + 2y \\
+      f_{xx}(x,y) = 2 \qquad f_{yy}(x,y) = -2x + 2
+    \end{align*}
+    Applico poi la formula del polinomio di Taylor di secondo grado sostituendo $(\overline{x},
+    \overline{y}) = (2, -2)$:
+    \begin{align*}
+      T_2(x,y) &= f(2, -2) + \langle \nabla f(2, -2), (x-2, y+2) \rangle + \\
+      &\frac{1}{2} \langle H_f(2, -2) (x-2, y+2), (x-2, y+2) \rangle \\
+      T_2(x,y) &= -3 + \langle (0, 4), (x-2, y+2) \rangle + \\
+      &\frac{1}{2} \langle \begin{bmatrix}2 & 4 \\ 4 & -2 \end{bmatrix} \begin{pmatrix}x-2 \\ y+2\end{pmatrix}, (x-2, y+2) \rangle \\
+      T_2(x,y) &= -3 + 4(y+2) \rangle + \frac{1}{2} \langle (2(x-2)+4(y+2), 4(x-2)+2(y+2)), (x-2, y+2) \rangle \\
+      T_2(x,y) &= -3 + 4(y+2) \rangle + \frac{1}{2} \langle (2x+4y+4, 4x+2y-4), (x-2, y+2) \rangle \\
+      \ldots
+    \end{align*}
+\end{enumerate}
+
+\end{document}
