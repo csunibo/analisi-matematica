@@ -1,4 +1,4 @@
-# \<Insegnamento\>
+# Analisi Matematica
 
 Una raccolta di risorse per l'insegnamento di Analisi matematica del Corso di
 Laurea in Informatica.
