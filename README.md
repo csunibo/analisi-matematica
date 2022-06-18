@@ -1,4 +1,4 @@
-# Analisi matematica (00013)
+# Analisi Matematica (00013)
 
 Una raccolta di risorse per l'insegnamento di Analisi matematica (00013) del Corso di
 Laurea in Informatica.
